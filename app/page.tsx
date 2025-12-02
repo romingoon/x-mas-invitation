@@ -15,6 +15,7 @@ function HomeContent() {
   const currentView = searchParams.get('view') || 'home';
   const containerRef = useRef<HTMLDivElement>(null);
   const isProgrammaticScroll = useRef(false);
+  const isUrlUpdateFromScroll = useRef(false);
 
   const navigateTo = (view: string) => {
     router.replace(`/?view=${view}`);
@@ -35,6 +36,12 @@ function HomeContent() {
 
   // URL query param이 변경되면 해당 섹션으로 스크롤
   useEffect(() => {
+    // 스크롤로 인한 URL 변경이면 스크롤 동작 수행하지 않음
+    if (isUrlUpdateFromScroll.current) {
+      isUrlUpdateFromScroll.current = false;
+      return;
+    }
+
     const sectionId = currentView === 'home' ? 'home' : currentView;
     const element = document.getElementById(sectionId);
 
@@ -65,6 +72,7 @@ function HomeContent() {
             const sectionId = entry.target.id;
             // 현재 뷰와 다를 경우에만 URL 업데이트 (replace로 히스토리 쌓지 않음)
             if (currentView !== sectionId) {
+              isUrlUpdateFromScroll.current = true;
               router.replace(`/?view=${sectionId}`, { scroll: false });
             }
           }
