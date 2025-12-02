@@ -88,8 +88,8 @@ export function MusicPlayer() {
             {showControls && (
                 <div className="bg-white/90 backdrop-blur-md p-3 rounded-2xl shadow-lg border border-gray-200 mb-2 animate-in slide-in-from-bottom-2 fade-in duration-200">
                     <div className="flex items-center gap-3 mb-2">
-                        <div className="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center animate-spin-slow">
-                            <Disc className="w-6 h-6 text-secondary" />
+                        <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center animate-spin-slow">
+                            <Disc className="w-6 h-6 text-red-600" />
                         </div>
                         <div className="text-sm">
                             <p className="font-bold text-gray-900 line-clamp-1 w-32">{currentTrack.title}</p>
@@ -116,7 +116,7 @@ export function MusicPlayer() {
                 onClick={() => setShowControls(!showControls)}
                 className={cn(
                     "rounded-full w-12 h-12 shadow-lg transition-all duration-300",
-                    isPlaying ? "bg-secondary hover:bg-secondary/90 text-white animate-pulse-slow" : "bg-white hover:bg-gray-50 text-gray-600 border border-gray-200"
+                    isPlaying ? "bg-red-600 hover:bg-red-700 text-white animate-pulse-slow" : "bg-white hover:bg-gray-50 text-gray-600 border border-gray-200"
                 )}
             >
                 {isPlaying ? (
