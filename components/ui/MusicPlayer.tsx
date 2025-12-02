@@ -52,6 +52,21 @@ export function MusicPlayer() {
         };
     }, [hasInteracted]);
 
+    // 백그라운드 전환 시 오디오 일시정지 처리
+    useEffect(() => {
+        const handleVisibilityChange = () => {
+            if (document.hidden && audioRef.current) {
+                audioRef.current.pause();
+                setIsPlaying(false);
+            }
+        };
+
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+        return () => {
+            document.removeEventListener('visibilitychange', handleVisibilityChange);
+        };
+    }, []);
+
     useEffect(() => {
         if (audioRef.current) {
             if (isPlaying) {
