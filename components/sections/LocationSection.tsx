@@ -48,7 +48,7 @@ export function LocationSection({
                 justifyContent: 'center',
                 width: '40px',
                 height: '40px',
-                background: '#065f46',
+                background: 'var(--secondary)', // Use theme variable
                 borderRadius: '50%',
                 boxShadow: '0 4px 6px rgba(0,0,0,0.2)',
             }}
@@ -414,7 +414,7 @@ export function LocationSection({
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.1 }}
-                        className="rounded-2xl overflow-hidden shadow-sm bg-gradient-to-br from-emerald-700 to-emerald-900 p-6 text-white"
+                        className="rounded-2xl overflow-hidden shadow-sm bg-gradient-to-br from-secondary to-secondary/80 p-6 text-secondary-foreground"
                     >
                         <div className="flex items-start gap-3">
                             <MapPin className="w-6 h-6 flex-shrink-0 mt-1" />
@@ -446,7 +446,7 @@ export function LocationSection({
                             {!mapLoaded && (
                                 <div className="absolute inset-0 flex items-center justify-center bg-gray-100 z-10">
                                     <div className="text-center">
-                                        <Loader2 className="w-8 h-8 animate-spin text-emerald-700 mx-auto mb-2" />
+                                        <Loader2 className="w-8 h-8 animate-spin text-secondary mx-auto mb-2" />
                                         <p className="text-sm text-gray-600">지도 로딩 중...</p>
                                         <p className="text-xs text-gray-500 mt-1">
                                             스크립트 로드: {scriptLoaded ? '완료' : '진행 중'}
@@ -459,7 +459,7 @@ export function LocationSection({
                         <div className="grid grid-cols-2 gap-2 mt-4">
                             <Button
                                 onClick={handleOpenNaverMap}
-                                className="w-full bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl"
+                                className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground rounded-xl"
                             >
                                 <MapPin className="w-4 h-4 mr-2" />
                                 지도 열기
@@ -467,7 +467,7 @@ export function LocationSection({
                             <Button
                                 onClick={handleNavigationFromCurrentLocation}
                                 disabled={locationLoading}
-                                className="w-full bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl disabled:opacity-50"
+                                className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground rounded-xl disabled:opacity-50"
                             >
                                 {locationLoading ? (
                                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
@@ -483,7 +483,7 @@ export function LocationSection({
                                 <Button
                                     onClick={handleNavigation}
                                     variant="outline"
-                                    className="w-full rounded-xl border-emerald-200 text-emerald-700 hover:bg-emerald-50"
+                                    className="w-full rounded-xl border-secondary/20 text-secondary hover:bg-secondary/10"
                                 >
                                     <Navigation className="w-4 h-4 mr-2" />
                                     기본 길찾기
@@ -504,8 +504,8 @@ export function LocationSection({
 
                         <div className="bg-white rounded-xl p-5 shadow-sm">
                             <div className="flex items-start gap-4">
-                                <div className="p-2.5 bg-emerald-50 rounded-lg flex-shrink-0">
-                                    <TramFront className="w-5 h-5 text-emerald-700" />
+                                <div className="p-2.5 bg-secondary/10 rounded-lg flex-shrink-0">
+                                    <TramFront className="w-5 h-5 text-secondary" />
                                 </div>
                                 <div className="flex-1 min-w-0">
                                     <h1 className="text-xl text-gray-900 mb-2 font-semibold">
@@ -572,9 +572,9 @@ export function LocationSection({
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.5 }}
-                        className="bg-emerald-50 rounded-xl p-4 border border-emerald-100"
+                        className="bg-secondary/10 rounded-xl p-4 border border-secondary/20"
                     >
-                        <p className="text-xs text-emerald-900 text-center">
+                        <p className="text-xs text-secondary text-center">
                             장애인 편의시설이 완비되어 있습니다
                         </p>
                     </motion.div>
