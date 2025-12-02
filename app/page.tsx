@@ -88,23 +88,23 @@ function HomeContent() {
         <HomeSection onNavigate={navigateTo} />
       </section>
 
-      <section id="intro" className="h-full snap-start w-full bg-white overflow-hidden">
+      <section id="intro" className="h-full snap-start w-full overflow-hidden">
         <IntroSection />
       </section>
 
-      <section id="choirs" className="h-full snap-start w-full bg-stone-50 overflow-hidden">
+      <section id="choirs" className="h-full snap-start w-full overflow-hidden">
         <ChoirsSection />
       </section>
 
-      <section id="program" className="h-full snap-start w-full bg-white overflow-hidden">
+      <section id="program" className="h-full snap-start w-full overflow-hidden">
         <ProgramSection />
       </section>
 
-      <section id="location" className="h-full snap-start w-full bg-white overflow-hidden">
+      <section id="location" className="h-full snap-start w-full overflow-hidden">
         <LocationSection />
       </section>
 
-      <section id="share" className="h-full snap-start w-full bg-white overflow-hidden">
+      <section id="share" className="h-full snap-start w-full overflow-hidden">
         <ShareSection />
       </section>
     </div>
