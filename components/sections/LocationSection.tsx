@@ -18,6 +18,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 interface LocationSectionProps {
     venue?: string;
     venueAddress?: string;
+    venueFloor?: string;
     imageUrl?: string;
 }
 
@@ -28,8 +29,8 @@ interface UserLocation {
 
 export function LocationSection({
     venue = '새문안교회',
+    venueFloor = '새문안교회 4층 대예배당',
     venueAddress = '서울특별시 종로구 새문안로 79',
-    imageUrl = ''
 }: LocationSectionProps) {
     const mapRef = useRef<HTMLDivElement>(null);
     const mapInstanceRef = useRef<NaverMap | null>(null); // 지도 인스턴스 저장
@@ -418,7 +419,7 @@ export function LocationSection({
                         <div className="flex items-start gap-3">
                             <MapPin className="w-6 h-6 flex-shrink-0 mt-1" />
                             <div>
-                                <h3 className="text-xl mb-2 font-semibold">{venue}</h3>
+                                <h3 className="text-xl mb-2 font-semibold">{venueFloor}</h3>
                                 <p className="text-sm text-white/90 leading-relaxed">
                                     {venueAddress}
                                 </p>

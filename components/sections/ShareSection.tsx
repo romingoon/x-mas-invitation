@@ -7,8 +7,20 @@ import { Calendar, MapPin, Link as LinkIcon, Check } from "lucide-react";
 import { RiKakaoTalkFill } from "react-icons/ri";
 import { useEffect, useState } from "react";
 
-export function ShareSection() {
+
+interface ShareSectionProps {
+    url?: string;
+    title?: string;
+}
+
+
+export function ShareSection({ url = '', title = '' }: ShareSectionProps) {
     const [isKakaoInitialized, setIsKakaoInitialized] = useState(false);
+    const [copied, setCopied] = useState(false);
+    const currentUrl =
+        url || (typeof window !== 'undefined' ? window.location.href : '');
+
+    const pageUrl = 'https://x-mas-invitation.vercel.app/';
 
     useEffect(() => {
         if (window.Kakao && window.Kakao.isInitialized()) {
@@ -38,16 +50,16 @@ export function ShareSection() {
                 description: '2025년 12월 20일(토) 오후 3시 새문안교회 4층 대예배당',
                 imageUrl: 'https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20191207_200%2F1575645003467FPzEl_JPEG%2Fy7NcXhRAN3M-rgQCsjWM4WE0.jpg',
                 link: {
-                    mobileWebUrl: window.location.origin,
-                    webUrl: window.location.origin,
+                    mobileWebUrl: pageUrl,
+                    webUrl: pageUrl,
                 },
             },
             buttons: [
                 {
                     title: '초대장 보기',
                     link: {
-                        mobileWebUrl: window.location.origin,
-                        webUrl: window.location.origin,
+                        mobileWebUrl: pageUrl,
+                        webUrl: pageUrl,
                     },
                 },
             ],
@@ -58,7 +70,7 @@ export function ShareSection() {
 
     const handleCopyLink = async () => {
         try {
-            await navigator.clipboard.writeText(window.location.origin);
+            await navigator.clipboard.writeText(pageUrl);
             setIsCopied(true);
             setTimeout(() => setIsCopied(false), 2000);
         } catch (err) {
@@ -72,8 +84,8 @@ export function ShareSection() {
             <div className="text-center space-y-4">
                 <h2 className="text-2xl font-bold text-gray-900">초대하기</h2>
                 <p className="text-gray-600">
-                    소중한 분들에게<br />
-                    성탄 연합 찬양제 초대장을 보내보세요.
+                    소중한 분들과<br />
+                    성탄 연합 찬양제를 함께 즐기세요.
                 </p>
             </div>
 

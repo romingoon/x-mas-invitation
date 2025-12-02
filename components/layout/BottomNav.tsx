@@ -2,14 +2,14 @@
 
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
-import { Home, Info, Users, Music, MapPin, Share2 } from "lucide-react";
+import { Home, Info, Church, ListMusic, MapPin, Share2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
     { href: "/?view=home", label: "홈", icon: Home },
     { href: "/?view=intro", label: "찬양제 소개", icon: Info },
-    { href: "/?view=choirs", label: "찬양대 소개", icon: Users },
-    { href: "/?view=program", label: "프로그램", icon: Music },
+    { href: "/?view=choirs", label: "찬양대 소개", icon: Church },
+    { href: "/?view=program", label: "프로그램", icon: ListMusic },
     { href: "/?view=location", label: "오시는 길", icon: MapPin },
     { href: "/?view=share", label: "초대하기", icon: Share2 },
 ];
@@ -37,7 +37,7 @@ export function BottomNav() {
                                 isActive ? "text-red-700" : "text-gray-400 hover:text-red-600"
                             )}
                         >
-                            <Icon className={cn("w-6 h-6", isActive && "fill-current")} />
+                            <Icon className={cn("w-6 h-6")} />
                             <span className={cn("text-[10px] font-medium", isActive && "font-bold")}>{item.label}</span>
                         </Link>
                     );
