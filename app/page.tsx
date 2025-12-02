@@ -84,27 +84,27 @@ function HomeContent() {
 
   return (
     <div ref={containerRef} className="h-[calc(100vh-9rem)] overflow-y-scroll snap-y snap-mandatory scroll-smooth no-scrollbar">
-      <section id="home" className="h-full snap-start w-full">
+      <section id="home" className="h-full snap-start w-full overflow-hidden">
         <HomeSection onNavigate={navigateTo} />
       </section>
 
-      <section id="intro" className="h-full snap-start w-full bg-white">
+      <section id="intro" className="h-full snap-start w-full bg-white overflow-hidden">
         <IntroSection />
       </section>
 
-      <section id="choirs" className="h-full snap-start w-full bg-stone-50">
+      <section id="choirs" className="h-full snap-start w-full bg-stone-50 overflow-hidden">
         <ChoirsSection />
       </section>
 
-      <section id="program" className="h-full snap-start w-full bg-white">
+      <section id="program" className="h-full snap-start w-full bg-white overflow-hidden">
         <ProgramSection />
       </section>
 
-      <section id="location" className="h-full snap-start w-full bg-white">
+      <section id="location" className="h-full snap-start w-full bg-white overflow-hidden">
         <LocationSection />
       </section>
 
-      <section id="share" className="h-full snap-start w-full bg-white">
+      <section id="share" className="h-full snap-start w-full bg-white overflow-hidden">
         <ShareSection />
       </section>
     </div>
