@@ -18,12 +18,9 @@ export function BackButtonHandler() {
             // 1. 일반적인 window.close()
             window.close();
 
-            // 2. 카카오톡 인앱 브라우저 대응 (Kakao JS SDK가 로드되어 있다면)
-            // @ts-ignore
-            if (typeof Kakao !== 'undefined' && Kakao.Auth) {
-                // @ts-ignore
-                Kakao.closeWindow();
-            }
+            // 2. 카카오톡 인앱 브라우저 대응
+            // Kakao.closeWindow()는 존재하지 않는 함수이므로 제거함.
+            // window.close()가 대부분의 인앱 브라우저에서 동작함.
 
             // 3. 네이버 앱 등 기타 인앱 브라우저 대응 시도
             // 일부 환경에서는 history.back()을 호출해야 할 수도 있지만, 
