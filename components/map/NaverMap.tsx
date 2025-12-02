@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Script from "next/script";
+import type { NaverMap as NaverMapType } from "@/types/naver-maps";
 
 interface NaverMapProps {
     latitude: number;
@@ -11,7 +12,7 @@ interface NaverMapProps {
 
 export function NaverMap({ latitude, longitude, height = "400px" }: NaverMapProps) {
     const mapElement = useRef<HTMLDivElement>(null);
-    const mapRef = useRef<any>(null);
+    const mapRef = useRef<NaverMapType | null>(null);
 
     useEffect(() => {
         const initMap = () => {

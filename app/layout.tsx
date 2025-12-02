@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import "./globals.css";
 import { BottomNav } from "@/components/layout/BottomNav";
 import { Header } from "@/components/layout/Header";
@@ -37,7 +36,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="ko" suppressHydrationWarning>
       <body className={`font-sans antialiased bg-background text-foreground`} suppressHydrationWarning>
         <SnowEffect />
         <KakaoScript />
@@ -47,9 +46,7 @@ export default function RootLayout({
         <main className="pt-16 pb-20 min-h-screen px-4 relative z-10">
           {children}
         </main>
-        <Suspense fallback={null}>
-          <BottomNav />
-        </Suspense>
+        <BottomNav />
       </body>
     </html>
   );

@@ -14,9 +14,9 @@ interface ShareSectionProps {
 }
 
 
-export function ShareSection({ url = '', title = '' }: ShareSectionProps) {
+export function ShareSection({ url = '' }: ShareSectionProps) {
     const [isKakaoInitialized, setIsKakaoInitialized] = useState(false);
-    const [copied, setCopied] = useState(false);
+    const [isCopied, setIsCopied] = useState(false);
     const currentUrl =
         url || (typeof window !== 'undefined' ? window.location.href : '');
 
@@ -66,15 +66,12 @@ export function ShareSection({ url = '', title = '' }: ShareSectionProps) {
         });
     };
 
-    const [isCopied, setIsCopied] = useState(false);
-
     const handleCopyLink = async () => {
         try {
             await navigator.clipboard.writeText(pageUrl);
             setIsCopied(true);
             setTimeout(() => setIsCopied(false), 2000);
-        } catch (err) {
-            console.error('링크 복사 실패:', err);
+        } catch {
             alert('링크 복사에 실패했습니다.');
         }
     };

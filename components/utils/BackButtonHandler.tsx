@@ -1,9 +1,9 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, Suspense } from 'react';
 
-export function BackButtonHandler() {
+function BackButtonHandlerContent() {
     const searchParams = useSearchParams();
 
     // URL 변경 시(특히 모달이 닫혔을 때) 현재 상태가 '앱 진입점'임을 표시
@@ -49,7 +49,7 @@ export function BackButtonHandler() {
             // window.close()가 대부분의 인앱 브라우저에서 동작함.
 
             // 네이버 앱 등 기타 인앱 브라우저 대응 시도
-            // 일부 환경에서는 history.back()을 호출해야 할 수도 있지만, 
+            // 일부 환경에서는 history.back()을 호출해야 할 수도 있지만,
             // 여기서는 '창 닫기'가 목적이므로 close 시도 후 실패 시 다시 pushState로 앱 유지 (선택사항)
             // 사용자가 정말 나가고 싶어하므로 닫기 시도 후 별다른 조치 없이 종료되길 기대함.
         };
@@ -62,4 +62,12 @@ export function BackButtonHandler() {
     }, []);
 
     return null;
+}
+
+export function BackButtonHandler() {
+    return (
+        <Suspense fallback={null}>
+            <BackButtonHandlerContent />
+        </Suspense>
+    );
 }

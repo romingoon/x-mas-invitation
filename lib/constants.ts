@@ -41,10 +41,10 @@ export const PROGRAM = [
   { time: "15:10", title: "경배와 찬양", performer: "연합 찬양팀" },
   { time: "15:30", title: "은혜 교회 찬양", performer: "은혜 교회 청년 찬양대" },
   { time: "15:45", title: "소망 교회 찬양", performer: "소망 교회 청년 찬양대" },
-  { time: "15:15", title: "믿음 교회 찬양", performer: "믿음 교회 청년 찬양대" },
-  { time: "16:00", title: "4개 교회 단체 찬양", performer: "사랑 교회 청년 찬양대" },
-  { time: "16:10", title: "연합 합창", performer: "전체 찬양대" },
-  { time: "16:20", title: "폐회 기도", performer: "이목사님" },
+  { time: "16:00", title: "믿음 교회 찬양", performer: "믿음 교회 청년 찬양대" },
+  { time: "16:15", title: "4개 교회 단체 찬양", performer: "사랑 교회 청년 찬양대" },
+  { time: "16:30", title: "연합 합창", performer: "전체 찬양대" },
+  { time: "16:40", title: "폐회 기도", performer: "이목사님" },
 ];
 
 export const LOCATION = {

@@ -190,8 +190,7 @@ export function LocationSection({
                     '_blank'
                 );
             }
-        } catch (error) {
-            console.error('현재 위치를 가져오는데 실패했습니다:', error);
+        } catch {
             // 위치를 가져올 수 없을 때는 기본 길찾기 실행
             handleNavigation();
         }
@@ -228,18 +227,12 @@ export function LocationSection({
 
     // 네이버 지도 초기화
     const initializeMap = useCallback(() => {
-        console.log('지도 초기화 시도...');
-        console.log('mapRef.current:', mapRef.current);
-        console.log('window.naver:', window.naver);
-
         if (!mapRef.current || !window.naver || !window.naver.maps) {
-            console.error('지도 초기화 실패: 필수 조건 미충족');
             return;
         }
 
         // 이미 지도가 생성되어 있으면 재생성하지 않음
         if (mapInstanceRef.current) {
-            console.log('지도가 이미 생성되어 있습니다.');
             return;
         }
         try {
@@ -306,16 +299,14 @@ export function LocationSection({
             }
 
             setMapLoaded(true);
-            console.log('지도 초기화 완료');
-        } catch (error) {
-            console.error('지도 생성 중 오류 발생:', error);
+        } catch {
+            // 지도 생성 실패 시 무시
         }
     }, [CHURCH_COORDS.lat, CHURCH_COORDS.lng, userLocation, venue]);
     // 수동으로 스크립트 로드하기 (더 안정적인 방법)
     useEffect(() => {
         // 이미 스크립트가 로드되었는지 확인
         if (window.naver && window.naver.maps) {
-            console.log('네이버 지도 API가 이미 로드됨');
             setScriptLoaded(true);
             return;
         }
@@ -326,12 +317,11 @@ export function LocationSection({
         script.async = true;
 
         script.onload = () => {
-            console.log('네이버 지도 스크립트 로드 완료');
             setScriptLoaded(true);
         };
 
         script.onerror = () => {
-            console.error('네이버 지도 스크립트 로드 실패');
+            // 스크립트 로드 실패 시 무시
         };
 
         document.head.appendChild(script);
@@ -361,31 +351,10 @@ export function LocationSection({
     useEffect(() => {
         if ('geolocation' in navigator) {
             getCurrentLocation().catch(() => {
-                console.log('현재 위치를 가져올 수 없습니다.');
+                // 현재 위치를 가져올 수 없음
             });
         }
     }, []); // 빈 배열로 한 번만 실행
-
-    // 스크립트 로드 후 지도 초기화
-    useEffect(() => {
-        if (scriptLoaded && mapRef.current) {
-            // 약간의 딜레이를 주어 DOM이 완전히 준비되도록 함
-            const timer = setTimeout(() => {
-                initializeMap();
-            }, 100);
-
-            return () => clearTimeout(timer);
-        }
-    }, [scriptLoaded, initializeMap]);
-
-    // 컴포넌트 마운트 시 현재 위치 가져오기
-    useEffect(() => {
-        if ('geolocation' in navigator) {
-            getCurrentLocation().catch(() => {
-                console.log('현재 위치를 가져올 수 없습니다.');
-            });
-        }
-    }, []);
     // 사용자 위치가 업데이트되면 지도도 다시 초기화
     useEffect(() => {
         if (mapLoaded && userLocation) {
