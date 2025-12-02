@@ -28,7 +28,7 @@ export function SnowEffect() {
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
                     radius: Math.random() * 3 + 1,
-                    speed: Math.random() * 1 + 0.5,
+                    speed: Math.random() * 0.5 + 0.2,
                     opacity: Math.random() * 0.5 + 0.3,
                 });
             }
