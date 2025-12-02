@@ -31,6 +31,7 @@ export function BottomNav() {
                         <li key={item.href} className="flex-1 h-full">
                             <Link
                                 href={item.href}
+                                replace={true}
                                 className={cn(
                                     "flex flex-col items-center justify-center w-full h-full space-y-1 transition-colors duration-200",
                                     isActive ? "text-secondary" : "text-gray-400 hover:text-secondary/80"

@@ -6,6 +6,7 @@ import { Header } from "@/components/layout/Header";
 import KakaoScript from "./KakaoScript";
 import { MusicPlayer } from "@/components/ui/MusicPlayer";
 import { SnowEffect } from "@/components/ui/SnowEffect";
+import { BackButtonHandler } from "@/components/utils/BackButtonHandler";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://x-mas-invitation.vercel.app/'),
@@ -40,6 +41,7 @@ export default function RootLayout({
       <body className={`font-sans antialiased bg-background text-foreground`} suppressHydrationWarning>
         <SnowEffect />
         <KakaoScript />
+        <BackButtonHandler />
         <Header />
         <MusicPlayer />
         <main className="pt-16 pb-20 min-h-screen px-4 relative z-10">

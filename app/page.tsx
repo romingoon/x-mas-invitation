@@ -17,7 +17,7 @@ function HomeContent() {
   const isProgrammaticScroll = useRef(false);
 
   const navigateTo = (view: string) => {
-    router.push(`/?view=${view}`);
+    router.replace(`/?view=${view}`);
   };
 
   const scrollToSection = (sectionId: string) => {
