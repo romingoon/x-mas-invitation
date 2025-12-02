@@ -4,7 +4,7 @@ import { PROGRAM } from "@/lib/constants";
 export function ProgramSection() {
     return (
         <div className="space-y-6 py-6 px-6 h-full overflow-y-auto">
-            <h2 className="text-2xl font-bold text-gray-900">프로그램</h2>
+            <h2 className="text-2xl font-bold text-red-800">프로그램</h2>
 
             <div className="space-y-4 pb-20">
                 {PROGRAM.map((item, index) => (

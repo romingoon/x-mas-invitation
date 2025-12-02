@@ -92,7 +92,7 @@ function ChoirsContent() {
 export function ChoirsSection() {
     return (
         <div className="space-y-6 py-6 px-6 h-full overflow-y-auto">
-            <h2 className="text-2xl font-bold text-gray-900">참여 찬양대</h2>
+            <h2 className="text-2xl font-bold text-red-800">참여 찬양대</h2>
             <Suspense fallback={<div className="h-64 flex items-center justify-center">Loading...</div>}>
                 <ChoirsContent />
             </Suspense>

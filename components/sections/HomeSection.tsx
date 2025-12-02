@@ -16,7 +16,7 @@ export function HomeSection({ onNavigate }: HomeSectionProps) {
                 <h1 className="text-4xl font-bold text-red-700 tracking-tight">
                     Christmas
                     <br />
-                    Praise Festival
+                    Invitation
                 </h1>
                 <p className="text-lg text-gray-600 font-light">
                     {FESTIVAL_INFO.invitationMessage}

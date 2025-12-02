@@ -10,7 +10,9 @@ export function IntroSection() {
                     {FESTIVAL_INFO.introText}
                 </p>
 
-                <h3 className="text-xl font-semibold text-gray-900 mt-8 mb-4">기획 의도</h3>
+                <h2 className="text-2xl font-bold text-red-800 mb-6 text-center">
+                    초대의 글
+                </h2>
                 <p className="text-gray-700 leading-relaxed">
                     {FESTIVAL_INFO.planningIntent}
                 </p>

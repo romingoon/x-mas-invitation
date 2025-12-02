@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import { Suspense } from "react";
 import "./globals.css";
 import { BottomNav } from "@/components/layout/BottomNav";
 import { Header } from "@/components/layout/Header";
 import KakaoScript from "./KakaoScript";
 import { MusicPlayer } from "@/components/ui/MusicPlayer";
-
-const inter = Inter({ subsets: ["latin"] });
+import { SnowEffect } from "@/components/ui/SnowEffect";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://x-mas-invitation.vercel.app/'),
@@ -39,11 +37,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} antialiased bg-gray-50 text-gray-900`} suppressHydrationWarning>
+      <body className={`font-sans antialiased bg-background text-foreground`} suppressHydrationWarning>
+        <SnowEffect />
         <KakaoScript />
         <Header />
         <MusicPlayer />
-        <main className="pt-16 pb-20 min-h-screen px-4">
+        <main className="pt-16 pb-20 min-h-screen px-4 relative z-10">
           {children}
         </main>
         <Suspense fallback={null}>

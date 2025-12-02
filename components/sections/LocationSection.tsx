@@ -499,7 +499,7 @@ export function LocationSection({
                         transition={{ delay: 0.3 }}
                         className="space-y-3"
                     >
-                        <h3 className="text-base text-gray-900 px-1">교통편</h3>
+                        <h3 className="font-bold text-lg text-gray-900">오시는 길</h3>
 
                         <div className="bg-white rounded-xl p-5 shadow-sm">
                             <div className="flex items-start gap-4">
