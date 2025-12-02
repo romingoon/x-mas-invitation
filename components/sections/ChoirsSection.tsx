@@ -59,7 +59,7 @@ function ChoirsContent() {
                             <Users className="w-12 h-12 text-gray-400" />
                         </div>
                         <CardHeader>
-                            <CardTitle className="text-lg text-red-700" suppressHydrationWarning>{choir.name}</CardTitle>
+                            <CardTitle className="text-lg text-secondary" suppressHydrationWarning>{choir.name}</CardTitle>
                         </CardHeader>
                         <CardContent>
                             <p className="text-gray-600 line-clamp-2">{choir.description}</p>
@@ -71,7 +71,7 @@ function ChoirsContent() {
             <Dialog open={open} onOpenChange={handleOpenChange}>
                 <DialogContent className="sm:max-w-[425px] w-[90%] rounded-xl">
                     <DialogHeader>
-                        <DialogTitle className="text-xl font-bold text-red-700">
+                        <DialogTitle className="text-xl font-bold text-secondary">
                             {selectedChoir?.name}
                         </DialogTitle>
                     </DialogHeader>
