@@ -59,7 +59,7 @@ function ChoirsContent() {
                             <Users className="w-12 h-12 text-gray-400" />
                         </div>
                         <CardHeader>
-                            <CardTitle className="text-lg text-red-700" suppressHydrationWarning>{choir.name}</CardTitle>
+                            <CardTitle className="text-lg text-secondary" suppressHydrationWarning>{choir.name}</CardTitle>
                         </CardHeader>
                         <CardContent>
                             <p className="text-gray-600 line-clamp-2">{choir.description}</p>
@@ -71,7 +71,7 @@ function ChoirsContent() {
             <Dialog open={open} onOpenChange={handleOpenChange}>
                 <DialogContent className="sm:max-w-[425px] w-[90%] rounded-xl">
                     <DialogHeader>
-                        <DialogTitle className="text-xl font-bold text-red-700">
+                        <DialogTitle className="text-xl font-bold text-secondary">
                             {selectedChoir?.name}
                         </DialogTitle>
                     </DialogHeader>
@@ -92,7 +92,7 @@ function ChoirsContent() {
 export function ChoirsSection() {
     return (
         <div className="space-y-6 py-6 px-6 h-full overflow-y-auto">
-            <h2 className="text-2xl font-bold text-red-800">참여 찬양대</h2>
+            <h2 className="text-2xl font-bold text-secondary">참여 찬양대</h2>
             <Suspense fallback={<div className="h-64 flex items-center justify-center">Loading...</div>}>
                 <ChoirsContent />
             </Suspense>

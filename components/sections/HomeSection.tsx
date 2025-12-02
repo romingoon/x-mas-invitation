@@ -26,13 +26,13 @@ export function HomeSection({ onNavigate }: HomeSectionProps) {
             <Card className="w-full max-w-sm border-none shadow-lg bg-white/90 backdrop-blur">
                 <CardContent className="p-6 space-y-4">
                     <div className="flex items-center space-x-3 text-gray-700">
-                        <Calendar className="w-5 h-5 text-red-600" />
+                        <Calendar className="w-5 h-5 text-secondary" />
                         <span className="font-medium">
                             {FESTIVAL_INFO.date} {FESTIVAL_INFO.time}
                         </span>
                     </div>
                     <div className="flex items-center space-x-3 text-gray-700">
-                        <MapPin className="w-5 h-5 text-red-600" />
+                        <MapPin className="w-5 h-5 text-secondary" />
                         <span className="font-medium">{FESTIVAL_INFO.location}</span>
                     </div>
                 </CardContent>

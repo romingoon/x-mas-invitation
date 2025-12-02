@@ -94,7 +94,7 @@ export function ShareSection({ url = '', title = '' }: ShareSectionProps) {
                 <Card className="w-full max-w-sm border-none shadow-lg bg-white/90 backdrop-blur pointer-events-none select-none">
                     <div className="h-40 bg-gray-200 relative overflow-hidden rounded-t-xl">
                         {/* Placeholder for actual image */}
-                        <div className="absolute inset-0 flex items-center justify-center bg-red-50 text-red-200">
+                        <div className="absolute inset-0 flex items-center justify-center bg-secondary/10 text-secondary/40">
                             <span className="text-4xl font-bold">Christmas</span>
                         </div>
                     </div>
@@ -102,11 +102,11 @@ export function ShareSection({ url = '', title = '' }: ShareSectionProps) {
                         <h3 className="text-lg font-bold text-gray-900">성탄 연합 찬양제</h3>
                         <div className="space-y-2 text-sm text-gray-600">
                             <div className="flex items-center gap-2">
-                                <Calendar className="w-4 h-4 text-red-600" />
+                                <Calendar className="w-4 h-4 text-secondary" />
                                 <span>{FESTIVAL_INFO.date} {FESTIVAL_INFO.time}</span>
                             </div>
                             <div className="flex items-center gap-2">
-                                <MapPin className="w-4 h-4 text-red-600" />
+                                <MapPin className="w-4 h-4 text-secondary" />
                                 <span>{FESTIVAL_INFO.location}</span>
                             </div>
                         </div>
