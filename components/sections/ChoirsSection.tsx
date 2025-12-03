@@ -1,31 +1,21 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { CHOIRS } from "@/lib/constants";
 import { Users } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState, Suspense } from "react";
 
+import Image from "next/image";
+
 function ChoirsContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
-    const [open, setOpen] = useState(false);
-    const [selectedChoir, setSelectedChoir] = useState<(typeof CHOIRS)[0] | null>(null);
 
     const choirId = searchParams.get("choirId");
-
-    useEffect(() => {
-        if (choirId) {
-            const choir = CHOIRS.find((c) => c.id === Number(choirId));
-            if (choir) {
-                setSelectedChoir(choir);
-                setOpen(true);
-            }
-        } else {
-            setOpen(false);
-        }
-    }, [choirId]);
+    const isOpen = !!choirId;
+    const selectedChoir = choirId ? CHOIRS.find((c) => c.id === Number(choirId)) : null;
 
     const handleCardClick = (id: number) => {
         const params = new URLSearchParams(searchParams.toString());
@@ -33,8 +23,8 @@ function ChoirsContent() {
         router.push(`?${params.toString()}`, { scroll: false });
     };
 
-    const handleOpenChange = (isOpen: boolean) => {
-        if (!isOpen) {
+    const handleOpenChange = (open: boolean) => {
+        if (!open) {
             const params = new URLSearchParams(searchParams.toString());
             params.delete("choirId");
             router.push(`?${params.toString()}`, { scroll: false });
@@ -52,32 +42,49 @@ function ChoirsContent() {
                         suppressHydrationWarning
                     >
                         <div
-                            className="h-32 bg-gray-200 flex items-center justify-center"
+                            className="h-48 bg-gray-200 relative"
                             suppressHydrationWarning
                         >
-                            {/* Placeholder for Image */}
-                            <Users className="w-12 h-12 text-gray-400" />
+                            <Image
+                                src={choir.image}
+                                alt={choir.name}
+                                fill
+                                className="object-cover"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            />
                         </div>
                         <CardHeader>
                             <CardTitle className="text-lg text-secondary" suppressHydrationWarning>{choir.name}</CardTitle>
                         </CardHeader>
+                        <CardContent>
+                            <CardDescription className="text-gray-600 line-clamp-2" suppressHydrationWarning>
+                                {choir.description}
+                            </CardDescription>
+                        </CardContent>
                     </Card>
                 ))}
             </div>
 
-            <Dialog open={open} onOpenChange={handleOpenChange}>
-                <DialogContent className="sm:max-w-[425px] w-[90%] rounded-xl">
+            <Dialog open={isOpen} onOpenChange={handleOpenChange}>
+                <DialogContent className="sm:max-w-[425px] w-[90%] rounded-xl max-h-[90vh] overflow-y-auto">
                     <DialogHeader>
                         <DialogTitle className="text-xl font-bold text-secondary">
                             {selectedChoir?.name}
                         </DialogTitle>
                     </DialogHeader>
                     <div className="space-y-4">
-                        <div className="h-48 bg-gray-100 rounded-lg flex items-center justify-center">
-                            <Users className="w-16 h-16 text-gray-400" />
+                        <div className="h-48 bg-gray-100 rounded-lg relative overflow-hidden">
+                            {selectedChoir && (
+                                <Image
+                                    src={selectedChoir.image}
+                                    alt={selectedChoir.name}
+                                    fill
+                                    className="object-cover"
+                                />
+                            )}
                         </div>
-                        <DialogDescription className="text-gray-700 text-base leading-relaxed">
-                            {selectedChoir?.description}
+                        <DialogDescription className="text-gray-700 text-base leading-relaxed whitespace-pre-wrap">
+                            {selectedChoir?.details || selectedChoir?.description}
                         </DialogDescription>
                     </div>
                 </DialogContent>
