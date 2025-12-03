@@ -66,26 +66,30 @@ function ChoirsContent() {
             </div>
 
             <Dialog open={isOpen} onOpenChange={handleOpenChange}>
-                <DialogContent className="sm:max-w-[425px] w-[90%] rounded-xl max-h-[90vh] overflow-y-auto">
-                    <DialogHeader>
-                        <DialogTitle className="text-xl font-bold text-secondary">
-                            {selectedChoir?.name}
-                        </DialogTitle>
-                    </DialogHeader>
-                    <div className="space-y-4">
-                        <div className="h-48 bg-gray-100 rounded-lg relative overflow-hidden">
-                            {selectedChoir && (
-                                <Image
-                                    src={selectedChoir.image}
-                                    alt={selectedChoir.name}
-                                    fill
-                                    className="object-cover"
-                                />
-                            )}
+                <DialogContent className="sm:max-w-[425px] w-[90%] rounded-xl max-h-[90vh] flex flex-col p-0 gap-0 overflow-hidden">
+                    <div className="p-6 pb-2 shrink-0">
+                        <DialogHeader>
+                            <DialogTitle className="text-xl font-bold text-secondary">
+                                {selectedChoir?.name}
+                            </DialogTitle>
+                        </DialogHeader>
+                    </div>
+                    <div className="p-6 pt-2 overflow-y-auto">
+                        <div className="space-y-4">
+                            <div className="h-48 bg-gray-100 rounded-lg relative overflow-hidden shrink-0">
+                                {selectedChoir && (
+                                    <Image
+                                        src={selectedChoir.image}
+                                        alt={selectedChoir.name}
+                                        fill
+                                        className="object-cover"
+                                    />
+                                )}
+                            </div>
+                            <DialogDescription className="text-gray-700 text-base leading-relaxed whitespace-pre-wrap">
+                                {selectedChoir?.details || selectedChoir?.description}
+                            </DialogDescription>
                         </div>
-                        <DialogDescription className="text-gray-700 text-base leading-relaxed whitespace-pre-wrap">
-                            {selectedChoir?.details || selectedChoir?.description}
-                        </DialogDescription>
                     </div>
                 </DialogContent>
             </Dialog>

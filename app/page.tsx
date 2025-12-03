@@ -18,7 +18,9 @@ function HomeContent() {
   const isUrlUpdateFromScroll = useRef(false);
 
   const navigateTo = (view: string) => {
-    router.replace(`/?view=${view}`);
+    const newParams = new URLSearchParams(searchParams.toString());
+    newParams.set('view', view);
+    router.replace(`/?${newParams.toString()}`);
   };
 
   const scrollToSection = (sectionId: string) => {
@@ -73,7 +75,9 @@ function HomeContent() {
             // 현재 뷰와 다를 경우에만 URL 업데이트 (replace로 히스토리 쌓지 않음)
             if (currentView !== sectionId) {
               isUrlUpdateFromScroll.current = true;
-              router.replace(`/?view=${sectionId}`, { scroll: false });
+              const newParams = new URLSearchParams(searchParams.toString());
+              newParams.set('view', sectionId);
+              router.replace(`/?${newParams.toString()}`, { scroll: false });
             }
           }
         });
