@@ -5,6 +5,7 @@ import KakaoScript from "./KakaoScript";
 import { MusicPlayer } from "@/components/ui/MusicPlayer";
 import { SnowEffect } from "@/components/ui/SnowEffect";
 import { BackButtonHandler } from "@/components/utils/BackButtonHandler";
+import ImagePreloader from "./ImagePreloader";
 
 import { Analytics } from "@vercel/analytics/next"
 
@@ -43,6 +44,7 @@ export default function RootLayout({
         <SnowEffect />
         <KakaoScript />
         <BackButtonHandler />
+        <ImagePreloader />
         <MusicPlayer />
         <main className="pb-20 min-h-screen px-4 relative z-10">
           {children}
