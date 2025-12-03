@@ -27,7 +27,7 @@ function ChoirsContent() {
         if (!open) {
             const params = new URLSearchParams(searchParams.toString());
             params.delete("choirId");
-            router.push(`?${params.toString()}`, { scroll: false });
+            router.replace(`?${params.toString()}`, { scroll: false });
         }
     };
 
