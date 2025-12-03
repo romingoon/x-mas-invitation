@@ -524,7 +524,7 @@ export function LocationSection({
                                         자가용
                                     </h4>
                                     <p className="text-sm text-gray-600 leading-relaxed">
-                                        새문안교회 지하주차장 이용 가능
+                                        새문안교회 지하주차장(B5-B6) 이용 가능
                                     </p>
                                     <p className="text-sm text-gray-600 leading-relaxed">
                                         교회 지하주차장 만차시, 콘코디언 빌딩 지하주차장 주차 후

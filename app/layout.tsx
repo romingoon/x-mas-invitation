@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { BottomNav } from "@/components/layout/BottomNav";
-import { Header } from "@/components/layout/Header";
 import KakaoScript from "./KakaoScript";
 import { MusicPlayer } from "@/components/ui/MusicPlayer";
 import { SnowEffect } from "@/components/ui/SnowEffect";
 import { BackButtonHandler } from "@/components/utils/BackButtonHandler";
+
+import { Analytics } from "@vercel/analytics/next"
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://x-mas-invitation.vercel.app/'),
@@ -38,12 +39,12 @@ export default function RootLayout({
   return (
     <html lang="ko" suppressHydrationWarning>
       <body className={`font-sans antialiased bg-background text-foreground`} suppressHydrationWarning>
+        <Analytics />
         <SnowEffect />
         <KakaoScript />
         <BackButtonHandler />
-        <Header />
         <MusicPlayer />
-        <main className="pt-16 pb-20 min-h-screen px-4 relative z-10">
+        <main className="pb-20 min-h-screen px-4 relative z-10">
           {children}
         </main>
         <BottomNav />
