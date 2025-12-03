@@ -61,9 +61,6 @@ function ChoirsContent() {
                         <CardHeader>
                             <CardTitle className="text-lg text-secondary" suppressHydrationWarning>{choir.name}</CardTitle>
                         </CardHeader>
-                        <CardContent>
-                            <p className="text-gray-600 line-clamp-2">{choir.description}</p>
-                        </CardContent>
                     </Card>
                 ))}
             </div>
