@@ -13,7 +13,7 @@ export function SnowEffect() {
         if (!ctx) return;
 
         let animationFrameId: number;
-        let particles: { x: number; y: number; radius: number; speed: number; opacity: number }[] = [];
+        let particles: { x: number; y: number; radius: number; speed: number; opacity: number; type: 'circle' | 'snowflake' }[] = [];
 
         const resizeCanvas = () => {
             canvas.width = window.innerWidth;
@@ -24,25 +24,32 @@ export function SnowEffect() {
             const particleCount = Math.floor(window.innerWidth / 10); // Responsive particle count
             particles = [];
             for (let i = 0; i < particleCount; i++) {
+                const type = Math.random() > 0.8 ? 'snowflake' : 'circle';
                 particles.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
-                    radius: Math.random() * 3 + 1,
+                    radius: type === 'snowflake' ? Math.random() * 10 + 10 : Math.random() * 3 + 1,
                     speed: Math.random() * 0.5 + 0.2,
                     opacity: Math.random() * 0.5 + 0.3,
+                    type: type,
                 });
             }
         };
 
         const drawParticles = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = "white";
 
             particles.forEach((p) => {
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
-                ctx.fill();
+                if (p.type === 'snowflake') {
+                    ctx.font = `${p.radius}px serif`;
+                    ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
+                    ctx.fillText("❄️", p.x, p.y);
+                } else {
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
+                    ctx.fill();
+                }
             });
         };
 
