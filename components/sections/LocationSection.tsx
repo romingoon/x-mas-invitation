@@ -347,14 +347,7 @@ export function LocationSection({
         }
     }, [scriptLoaded, initializeMap]);
 
-    // 컴포넌트 마운트 시 현재 위치 가져오기 (한 번만 실행)
-    useEffect(() => {
-        if ('geolocation' in navigator) {
-            getCurrentLocation().catch(() => {
-                // 현재 위치를 가져올 수 없음
-            });
-        }
-    }, []); // 빈 배열로 한 번만 실행
+
     // 사용자 위치가 업데이트되면 지도도 다시 초기화
     useEffect(() => {
         if (mapLoaded && userLocation) {
