@@ -68,10 +68,13 @@ function BottomNavContent() {
 export function BottomNav() {
     return (
         <nav
-            className="fixed bottom-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-t border-border pb-safe shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]"
+            className="fixed bottom-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-t border-white/20 pb-safe shadow-[0_-4px_20px_-1px_rgba(0,0,0,0.1)]"
             role="navigation"
             aria-label="하단 메뉴"
         >
+            {/* Festive top border gradient */}
+            <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-primary/20 via-accent/50 to-primary/20" />
+
             <Suspense fallback={
                 <ul className="flex justify-around items-center h-16 max-w-lg mx-auto px-1">
                     {navItems.map((item) => {

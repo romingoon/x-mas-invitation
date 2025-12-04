@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { FESTIVAL_INFO } from "@/lib/constants";
-import { Calendar, MapPin } from "lucide-react";
+import { Calendar, MapPin, ChevronDown } from "lucide-react";
 
 interface HomeSectionProps {
     onNavigate: (sectionId: string) => void;
@@ -11,45 +11,65 @@ interface HomeSectionProps {
 
 export function HomeSection({ onNavigate }: HomeSectionProps) {
     return (
-        <div className="flex flex-col items-center justify-center space-y-8 py-10 px-6 h-full overflow-y-auto">
-            <div className="text-center space-y-4 opacity-0 animate-fade-in-up">
-                <h1 className="text-4xl md:text-5xl font-bold text-gradient-christmas tracking-tight">
-                    Christmas
-                    <br />
-                    Invitation
-                </h1>
-                <p className="text-lg text-muted-foreground font-light break-keep">
+        <div className="relative flex flex-col items-center justify-center space-y-8 py-10 px-6 h-full overflow-y-auto bg-[url('/images/snow-bg.png')] bg-cover bg-center">
+            {/* Overlay for better text readability */}
+            <div className="absolute inset-0 bg-white/30 backdrop-blur-[2px] -z-10" />
+
+            <div className="text-center space-y-6 opacity-0 animate-fade-in-up z-10">
+                <div className="space-y-2">
+                    <p className="text-primary font-medium tracking-widest uppercase text-sm animate-fade-in animate-stagger-1">
+                        2025 Joint Christmas Praise Festival
+                    </p>
+                    <h1 className="text-5xl md:text-6xl font-bold text-gradient-christmas tracking-tight leading-tight drop-shadow-sm">
+                        Christmas
+                        <br />
+                        Invitation
+                    </h1>
+                </div>
+                <p className="text-lg text-muted-foreground font-light break-keep max-w-xs mx-auto leading-relaxed">
                     {FESTIVAL_INFO.invitationMessage}
                 </p>
             </div>
 
-            <Card className="w-full max-w-sm md:max-w-md card-christmas shadow-xl border-2 border-primary/10 opacity-0 animate-fade-in-up animate-stagger-1">
-                <CardContent className="p-6 space-y-4">
-                    <div className="flex items-center space-x-3 text-foreground">
-                        <Calendar className="w-5 h-5 text-primary flex-shrink-0" aria-hidden="true" />
-                        <span className="font-medium">
-                            {FESTIVAL_INFO.date} {FESTIVAL_INFO.time}
-                        </span>
+            <Card className="w-full max-w-sm md:max-w-md card-christmas shadow-xl border border-white/40 opacity-0 animate-fade-in-up animate-stagger-2 z-10">
+                <CardContent className="p-6 space-y-5">
+                    <div className="flex items-center space-x-4 text-foreground group">
+                        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                            <Calendar className="w-5 h-5 text-primary" aria-hidden="true" />
+                        </div>
+                        <div className="flex flex-col text-left">
+                            <span className="text-xs text-muted-foreground font-semibold uppercase tracking-wider">Date & Time</span>
+                            <span className="font-medium text-lg">
+                                {FESTIVAL_INFO.date} <span className="text-primary mx-1">|</span> {FESTIVAL_INFO.time}
+                            </span>
+                        </div>
                     </div>
-                    <div className="flex items-center space-x-3 text-foreground">
-                        <MapPin className="w-5 h-5 text-primary flex-shrink-0" aria-hidden="true" />
-                        <span className="font-medium break-keep">{FESTIVAL_INFO.location}</span>
+                    <div className="h-px w-full bg-border/50" />
+                    <div className="flex items-center space-x-4 text-foreground group">
+                        <div className="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center group-hover:bg-secondary/20 transition-colors">
+                            <MapPin className="w-5 h-5 text-secondary" aria-hidden="true" />
+                        </div>
+                        <div className="flex flex-col text-left">
+                            <span className="text-xs text-muted-foreground font-semibold uppercase tracking-wider">Location</span>
+                            <span className="font-medium text-lg break-keep">{FESTIVAL_INFO.location}</span>
+                        </div>
                     </div>
                 </CardContent>
             </Card>
 
-            <div className="w-full max-w-sm md:max-w-md opacity-0 animate-fade-in-up animate-stagger-2">
+            <div className="w-full max-w-sm md:max-w-md opacity-0 animate-fade-in-up animate-stagger-3 z-10">
                 <Button
                     onClick={() => onNavigate('intro')}
-                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-lg py-6 rounded-xl btn-glow"
+                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-lg py-7 rounded-2xl btn-glow shadow-lg shadow-primary/20 transition-all duration-300"
                 >
-                    자세히 보기
+                    초대장 열기
                 </Button>
             </div>
 
-            <p className="text-sm text-muted-foreground/70 mt-10 break-keep text-center opacity-0 animate-fade-in animate-stagger-3">
-                새문안·동숭·자양·정릉교회 청년 찬양대 연합 주최
-            </p>
+            <div className="absolute bottom-8 left-0 right-0 flex flex-col items-center justify-center opacity-0 animate-fade-in animate-stagger-4 z-10">
+                <span className="text-xs text-muted-foreground mb-2">Scroll Down</span>
+                <ChevronDown className="w-6 h-6 text-primary animate-bounce opacity-50" />
+            </div>
         </div>
     );
 }
