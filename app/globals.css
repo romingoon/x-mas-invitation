@@ -152,3 +152,164 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Custom utility classes */
+@layer utilities {
+  /* Section padding for bottom nav */
+  .pb-nav {
+    padding-bottom: 6rem;
+  }
+
+  /* Section container */
+  .section-container {
+    @apply space-y-6 py-6 px-6 h-full overflow-y-auto;
+  }
+
+  /* Section title */
+  .section-title {
+    @apply text-2xl font-bold text-primary;
+  }
+
+  /* Christmas card style */
+  .card-christmas {
+    @apply border-none shadow-lg bg-white/95 backdrop-blur rounded-2xl;
+  }
+
+  /* Enhanced card with hover effect */
+  .card-hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card-hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+
+  /* Christmas gradient text */
+  .text-gradient-christmas {
+    background: linear-gradient(135deg, oklch(0.45 0.2 25) 0%, oklch(0.85 0.15 85) 50%, oklch(0.45 0.2 25) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 200% 100%;
+    animation: gradientShift 3s ease infinite;
+  }
+
+  /* Button glow effect */
+  .btn-glow {
+    box-shadow: 0 0 20px rgba(var(--primary), 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .btn-glow:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 30px rgba(var(--primary), 0.5);
+  }
+
+  .btn-glow:active {
+    transform: scale(0.98);
+  }
+
+  /* Quote box with decorative border */
+  .quote-box {
+    @apply relative;
+  }
+
+  .quote-box::before {
+    content: '"';
+    @apply absolute -top-4 -left-2 text-6xl text-primary/20 font-serif;
+  }
+
+  /* Image overlay gradient */
+  .image-overlay-gradient {
+    background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
+  }
+
+  /* Program number badge */
+  .program-badge {
+    @apply w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold;
+    background: linear-gradient(135deg, oklch(0.45 0.2 25) 0%, oklch(0.6 0.15 25) 100%);
+    color: oklch(0.98 0.01 85);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Nav indicator */
+  .nav-indicator {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 32px;
+    height: 3px;
+    border-radius: 2px 2px 0 0;
+    background: oklch(0.35 0.1 140);
+  }
+
+  /* Smooth fade in animation */
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.5s ease-out forwards;
+  }
+
+  .animate-icon-bounce {
+    animation: iconBounce 0.3s ease;
+  }
+
+  .animate-stagger-1 { animation-delay: 0.1s; }
+  .animate-stagger-2 { animation-delay: 0.2s; }
+  .animate-stagger-3 { animation-delay: 0.3s; }
+  .animate-stagger-4 { animation-delay: 0.4s; }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes iconBounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}

@@ -2,35 +2,40 @@ import { PROGRAM } from "@/lib/constants";
 
 export function ProgramSection() {
     return (
-        <div className="space-y-6 py-6 px-6 h-full overflow-y-auto">
-            <h2 className="text-2xl font-bold text-red-800 mb-2">프로그램</h2>
+        <div className="section-container">
+            <h2 className="section-title opacity-0 animate-fade-in-up">프로그램</h2>
 
-            <div className="pb-24">
+            <div className="pb-nav">
                 {PROGRAM.map((item, index) => (
                     <div
                         key={item.id}
-                        className={`py-4 ${index !== PROGRAM.length - 1 ? 'border-b border-red-100/60' : ''}`}
+                        className={`py-5 opacity-0 animate-fade-in-up ${index !== PROGRAM.length - 1 ? 'border-b-2 border-primary/15' : ''}`}
+                        style={{ animationDelay: `${Math.min(index * 0.05, 0.5)}s` }}
                     >
-                        <div className="flex items-start gap-3">
-                            <span className="text-red-900/80 font-serif italic text-lg font-bold shrink-0 mt-0.5 w-6 text-center">
+                        <div className="flex items-start gap-4">
+                            <span className="program-badge shrink-0 mt-0.5">
                                 {item.id}
                             </span>
-                            <div className="flex-1">
-                                <div className="flex flex-wrap items-baseline gap-x-2 mb-1.5">
-                                    <h3 className="font-bold text-gray-900 text-base leading-tight break-keep">
+                            <div className="flex-1 min-w-0">
+                                <div className="mb-2">
+                                    <h3 className="font-bold text-foreground text-base leading-tight break-keep inline">
                                         {item.title}
                                     </h3>
-                                    <span className="text-xs text-gray-500 font-medium">
-                                        -{item.composer}
-                                    </span>
+                                    {item.composer && (
+                                        <span className="text-xs text-muted-foreground/80 ml-2 font-medium">
+                                            — {item.composer}
+                                        </span>
+                                    )}
                                 </div>
-                                <div className="space-y-0.5">
-                                    <p className="text-sm text-gray-800 font-medium break-keep">
+                                <div className="space-y-1">
+                                    <p className="text-sm text-secondary font-semibold break-keep">
                                         {item.performer}
                                     </p>
-                                    <p className="text-xs text-gray-500">
-                                        {item.details}
-                                    </p>
+                                    {item.details && (
+                                        <p className="text-xs text-muted-foreground leading-relaxed">
+                                            {item.details}
+                                        </p>
+                                    )}
                                 </div>
                             </div>
                         </div>

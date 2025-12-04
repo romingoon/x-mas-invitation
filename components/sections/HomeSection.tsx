@@ -11,46 +11,45 @@ interface HomeSectionProps {
 
 export function HomeSection({ onNavigate }: HomeSectionProps) {
     return (
-        <div className="flex flex-col items-center justify-center space-y-8 py-10 h-full overflow-y-auto">
-            <div className="text-center space-y-4">
-                <h1 className="text-4xl font-bold text-red-700 tracking-tight">
+        <div className="flex flex-col items-center justify-center space-y-8 py-10 px-6 h-full overflow-y-auto">
+            <div className="text-center space-y-4 opacity-0 animate-fade-in-up">
+                <h1 className="text-4xl md:text-5xl font-bold text-gradient-christmas tracking-tight">
                     Christmas
                     <br />
                     Invitation
                 </h1>
-                <p className="text-lg text-gray-600 font-light break-keep">
+                <p className="text-lg text-muted-foreground font-light break-keep">
                     {FESTIVAL_INFO.invitationMessage}
                 </p>
             </div>
 
-            <Card className="w-full max-w-sm border-none shadow-lg bg-white/90 backdrop-blur">
+            <Card className="w-full max-w-sm md:max-w-md card-christmas shadow-xl border-2 border-primary/10 opacity-0 animate-fade-in-up animate-stagger-1">
                 <CardContent className="p-6 space-y-4">
-                    <div className="flex items-center space-x-3 text-gray-700">
-                        <Calendar className="w-5 h-5 text-red-600" />
+                    <div className="flex items-center space-x-3 text-foreground">
+                        <Calendar className="w-5 h-5 text-primary flex-shrink-0" aria-hidden="true" />
                         <span className="font-medium">
                             {FESTIVAL_INFO.date} {FESTIVAL_INFO.time}
                         </span>
                     </div>
-                    <div className="flex items-center space-x-3 text-gray-700">
-                        <MapPin className="w-5 h-5 text-red-600" />
-                        <span className="font-medium">{FESTIVAL_INFO.location}</span>
+                    <div className="flex items-center space-x-3 text-foreground">
+                        <MapPin className="w-5 h-5 text-primary flex-shrink-0" aria-hidden="true" />
+                        <span className="font-medium break-keep">{FESTIVAL_INFO.location}</span>
                     </div>
                 </CardContent>
             </Card>
 
-            <div className="w-full max-w-sm">
+            <div className="w-full max-w-sm md:max-w-md opacity-0 animate-fade-in-up animate-stagger-2">
                 <Button
                     onClick={() => onNavigate('intro')}
-                    className="w-full bg-red-700 hover:bg-red-800 text-white text-lg py-6 rounded-xl shadow-md transition-all"
+                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-lg py-6 rounded-xl btn-glow"
                 >
                     자세히 보기
                 </Button>
             </div>
 
-            {/* Decorative elements could go here */}
-            <div className="text-sm text-gray-400 mt-10 break-keep">
+            <p className="text-sm text-muted-foreground/70 mt-10 break-keep text-center opacity-0 animate-fade-in animate-stagger-3">
                 새문안·동숭·자양·정릉교회 청년 찬양대 연합 주최
-            </div>
+            </p>
         </div>
     );
 }
