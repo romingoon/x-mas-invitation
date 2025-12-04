@@ -50,21 +50,21 @@ export const CHOIRS = [
 ];
 
 export const PROGRAM = [
-  { id: 1, title: "땅의 노래 -Arr. 조은영", performer: "동숭교회 은나노 찬양대 (지휘 조은영, 피아노 이태운)" },
-  { id: 2, title: "예수 우리들의 밝은 빛 -Arr. 박애리", performer: "동숭교회 은나노 찬양대 (지휘 조은영, 피아노 이태운)" },
-  { id: 3, title: "Goodness of GOD -Jenn Johnson(Arr. 조성은)", performer: "자양교회 뒤나미스 찬양대 (지휘 조성은, 피아노 문예원)" },
-  { id: 4, title: "넉넉히 이기느니라 -Mark Hayes", performer: "자양교회 뒤나미스 찬양대 (지휘 조성은, 피아노 문예원)" },
-  { id: 5, title: "Stay With Us -Egil Hovland", performer: "정릉교회 할렐루야 찬양대 (지휘 김세희)" },
-  { id: 6, title: "거룩하시다(Sanctus) -André J. Thomas", performer: "정릉교회 할렐루야 찬양대 (지휘 김세희, 피아노 이영은)" },
-  { id: 7, title: "왕께 찬양합니다 -Arr.Camp Kirkland", performer: "새문안교회 한기림 찬양대 (지휘 안정현, 피아노 장연진)" },
-  { id: 8, title: "I sing because I'm happy -Arr. Rollo Dilworth", performer: "새문안교회 한기림 찬양대 (지휘 안정현, 피아노 장연진)" },
-  { id: 9, title: "춥디춥던 겨울 -백하슬기", performer: "연합찬양대 Unit 1 (지휘 김세희)" },
-  { id: 10, title: "모실 곳 없네 -안선", performer: "연합찬양대 Unit 2 (지휘 조은영, 피아노 이태운)" },
-  { id: 11, title: "만백성 기뻐하여라 -Arr. Molly Ijames", performer: "연합찬양대 Unit 3 (지휘 안정현, 피아노 장연진)" },
-  { id: 12, title: "아기 예수 -Pietro Yon(Arr. Mark Hayes)", performer: "연합찬양대 Unit 4 (지휘 조성은, 피아노 문예원)" },
-  { id: 13, title: "영광송(Gloria!) -Mary McDonald", performer: "청년 연합찬양대 (지휘 조은영, 피아노 이태운, 오르간 장연진)" },
-  { id: 14, title: "참 반가운 성도여 -Arr. Brad Nix", performer: "청년 연합찬양대 (지휘 조은영, 피아노 이태운, 오르간 장연진)" },
-  { id: 15, title: "은혜 아니면 -조성은", performer: "청년 연합찬양대 (지휘 안정현, 피아노 장연진) *앵콜곡" },
+  { id: 1, title: "땅의 노래", composer: "Arr. 조은영", performer: "동숭교회 은나노 찬양대", details: "(지휘 조은영, 피아노 이태운)" },
+  { id: 2, title: "예수 우리들의 밝은 빛", composer: "Arr. 박애리", performer: "동숭교회 은나노 찬양대", details: "(지휘 조은영, 피아노 이태운)" },
+  { id: 3, title: "Goodness of GOD", composer: "Jenn Johnson(Arr. 조성은)", performer: "자양교회 뒤나미스 찬양대", details: "(지휘 조성은, 피아노 문예원)" },
+  { id: 4, title: "넉넉히 이기느니라", composer: "Mark Hayes", performer: "자양교회 뒤나미스 찬양대", details: "(지휘 조성은, 피아노 문예원)" },
+  { id: 5, title: "Stay With Us", composer: "Egil Hovland", performer: "정릉교회 할렐루야 찬양대", details: "(지휘 김세희)" },
+  { id: 6, title: "거룩하시다(Sanctus)", composer: "André J. Thomas", performer: "정릉교회 할렐루야 찬양대", details: "(지휘 김세희, 피아노 이영은)" },
+  { id: 7, title: "왕께 찬양합니다", composer: "Arr.Camp Kirkland", performer: "새문안교회 한기림 찬양대", details: "(지휘 안정현, 피아노 장연진)" },
+  { id: 8, title: "I sing because I'm happy", composer: "Arr. Rollo Dilworth", performer: "새문안교회 한기림 찬양대", details: "(지휘 안정현, 피아노 장연진)" },
+  { id: 9, title: "춥디춥던 겨울", composer: "백하슬기", performer: "연합찬양대 Unit 1", details: "(지휘 김세희)" },
+  { id: 10, title: "모실 곳 없네", composer: "안선", performer: "연합찬양대 Unit 2", details: "(지휘 조은영, 피아노 이태운)" },
+  { id: 11, title: "만백성 기뻐하여라", composer: "Arr. Molly Ijames", performer: "연합찬양대 Unit 3", details: "(지휘 안정현, 피아노 장연진)" },
+  { id: 12, title: "아기 예수", composer: "Pietro Yon(Arr. Mark Hayes)", performer: "연합찬양대 Unit 4", details: "(지휘 조성은, 피아노 문예원)" },
+  { id: 13, title: "영광송(Gloria!)", composer: "Mary McDonald", performer: "청년 연합찬양대", details: "(지휘 조은영, 피아노 이태운, 오르간 장연진)" },
+  { id: 14, title: "참 반가운 성도여", composer: "Arr. Brad Nix", performer: "청년 연합찬양대", details: "(지휘 조은영, 피아노 이태운, 오르간 장연진)" },
+  { id: 15, title: "은혜 아니면", composer: "조성은", performer: "청년 연합찬양대", details: "(지휘 안정현, 피아노 장연진) *앵콜곡" },
 ];
 
 export const LOCATION = {
