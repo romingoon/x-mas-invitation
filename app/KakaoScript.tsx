@@ -15,6 +15,8 @@ export default function KakaoScript() {
       if (!window.Kakao.isInitialized()) {
         window.Kakao.init(kakaoKey);
       }
+      // Dispatch custom event when Kakao SDK is ready
+      window.dispatchEvent(new CustomEvent('kakaoReady'));
     }
   };
 

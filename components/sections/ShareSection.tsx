@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { FESTIVAL_INFO } from "@/lib/constants";
 import { Calendar, MapPin, Link as LinkIcon, Check } from "lucide-react";
-import { RiKakaoTalkFill } from "react-icons/ri";
+import { KakaoTalkIcon } from "@/components/icons/KakaoTalkIcon";
 import { useEffect, useState } from "react";
 
 
@@ -23,18 +23,24 @@ export function ShareSection({ url = '' }: ShareSectionProps) {
     const pageUrl = 'https://x-mas-invitation.vercel.app/';
 
     useEffect(() => {
-        if (window.Kakao && window.Kakao.isInitialized()) {
+        // Check if already initialized
+        if (window.Kakao?.isInitialized()) {
             setIsKakaoInitialized(true);
-        } else {
-            // SDK 로드 대기
-            const timer = setInterval(() => {
-                if (window.Kakao && window.Kakao.isInitialized()) {
-                    setIsKakaoInitialized(true);
-                    clearInterval(timer);
-                }
-            }, 500);
-            return () => clearInterval(timer);
+            return;
         }
+
+        // Listen for custom event from KakaoScript
+        const handleKakaoReady = () => {
+            if (window.Kakao?.isInitialized()) {
+                setIsKakaoInitialized(true);
+            }
+        };
+
+        window.addEventListener('kakaoReady', handleKakaoReady);
+
+        return () => {
+            window.removeEventListener('kakaoReady', handleKakaoReady);
+        };
     }, []);
 
     const handleKakaoShare = () => {
@@ -116,7 +122,7 @@ export function ShareSection({ url = '' }: ShareSectionProps) {
                         disabled={!isKakaoInitialized}
                         className="w-full bg-[#FEE500] hover:bg-[#FDD835] text-[#191919] text-lg py-6 rounded-xl shadow-md transition-all font-medium"
                     >
-                        <RiKakaoTalkFill className="w-6 h-6 mr-2" />
+                        <KakaoTalkIcon className="w-6 h-6 mr-2" />
                         카카오톡으로 초대장 보내기
                     </Button>
 

@@ -1,9 +1,31 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
+
+interface Particle {
+    x: number;
+    y: number;
+    radius: number;
+    speed: number;
+    opacity: number;
+    type: 'circle' | 'snowflake';
+    sway: number;
+    swaySpeed: number;
+    initialX: number;
+}
 
 export function SnowEffect() {
     const canvasRef = useRef<HTMLCanvasElement>(null);
+    const animationRef = useRef<number | null>(null);
+    const particlesRef = useRef<Particle[]>([]);
+    const isRunningRef = useRef(true);
+
+    // Detect low-performance devices
+    const isLowPerformance = useCallback(() => {
+        if (typeof navigator === 'undefined') return false;
+        const cores = navigator.hardwareConcurrency || 4;
+        return cores < 4;
+    }, []);
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -12,18 +34,12 @@ export function SnowEffect() {
         const ctx = canvas.getContext("2d");
         if (!ctx) return;
 
-        let animationFrameId: number;
-        let particles: {
-            x: number;
-            y: number;
-            radius: number;
-            speed: number;
-            opacity: number;
-            type: 'circle' | 'snowflake';
-            sway: number;
-            swaySpeed: number;
-            initialX: number;
-        }[] = [];
+        const isLowEnd = isLowPerformance();
+        const MAX_PARTICLES = isLowEnd ? 40 : 80;
+        const TARGET_FPS = isLowEnd ? 30 : 60;
+        const FRAME_INTERVAL = 1000 / TARGET_FPS;
+
+        let lastFrameTime = 0;
 
         const resizeCanvas = () => {
             canvas.width = window.innerWidth;
@@ -31,20 +47,23 @@ export function SnowEffect() {
         };
 
         const createParticles = () => {
-            const particleCount = Math.floor(window.innerWidth / 10); // Responsive particle count
-            particles = [];
+            const baseCount = Math.floor(window.innerWidth / 15);
+            const particleCount = Math.min(baseCount, MAX_PARTICLES);
+
+            particlesRef.current = [];
             for (let i = 0; i < particleCount; i++) {
-                const type = Math.random() > 0.8 ? 'snowflake' : 'circle';
+                // On low-end devices, skip snowflake emojis for better performance
+                const type = isLowEnd ? 'circle' : (Math.random() > 0.85 ? 'snowflake' : 'circle');
                 const x = Math.random() * canvas.width;
-                particles.push({
+                particlesRef.current.push({
                     x: x,
                     y: Math.random() * canvas.height,
                     radius: type === 'snowflake' ? Math.random() * 10 + 10 : Math.random() * 3 + 1,
                     speed: Math.random() * 0.5 + 0.2,
                     opacity: Math.random() * 0.5 + 0.3,
                     type: type,
-                    sway: Math.random() * 20 + 10, // Sway amplitude
-                    swaySpeed: Math.random() * 0.02 + 0.01, // Sway frequency
+                    sway: Math.random() * 20 + 10,
+                    swaySpeed: Math.random() * 0.02 + 0.01,
                     initialX: x,
                 });
             }
@@ -53,7 +72,7 @@ export function SnowEffect() {
         const drawParticles = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            particles.forEach((p) => {
+            particlesRef.current.forEach((p) => {
                 if (p.type === 'snowflake') {
                     ctx.font = `${p.radius}px serif`;
                     ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
@@ -68,9 +87,8 @@ export function SnowEffect() {
         };
 
         const updateParticles = () => {
-            particles.forEach((p) => {
+            particlesRef.current.forEach((p) => {
                 p.y += p.speed;
-                // Apply horizontal sway
                 p.x = p.initialX + Math.sin(p.y * p.swaySpeed) * p.sway;
 
                 if (p.y > canvas.height) {
@@ -81,26 +99,56 @@ export function SnowEffect() {
             });
         };
 
-        const animate = () => {
-            drawParticles();
-            updateParticles();
-            animationFrameId = requestAnimationFrame(animate);
+        const animate = (currentTime: number) => {
+            if (!isRunningRef.current) {
+                animationRef.current = requestAnimationFrame(animate);
+                return;
+            }
+
+            const deltaTime = currentTime - lastFrameTime;
+
+            if (deltaTime >= FRAME_INTERVAL) {
+                lastFrameTime = currentTime - (deltaTime % FRAME_INTERVAL);
+                drawParticles();
+                updateParticles();
+            }
+
+            animationRef.current = requestAnimationFrame(animate);
         };
 
+        // Handle visibility change - pause when tab is hidden
+        const handleVisibilityChange = () => {
+            isRunningRef.current = !document.hidden;
+        };
+
+        // Handle resize with debounce
+        let resizeTimeout: NodeJS.Timeout;
+        const handleResize = () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                resizeCanvas();
+                createParticles();
+            }, 150);
+        };
+
+        // Initialize
         resizeCanvas();
         createParticles();
-        animate();
+        animationRef.current = requestAnimationFrame(animate);
 
-        window.addEventListener("resize", () => {
-            resizeCanvas();
-            createParticles();
-        });
+        // Event listeners
+        window.addEventListener("resize", handleResize);
+        document.addEventListener("visibilitychange", handleVisibilityChange);
 
         return () => {
-            cancelAnimationFrame(animationFrameId);
-            window.removeEventListener("resize", resizeCanvas);
+            if (animationRef.current) {
+                cancelAnimationFrame(animationRef.current);
+            }
+            clearTimeout(resizeTimeout);
+            window.removeEventListener("resize", handleResize);
+            document.removeEventListener("visibilitychange", handleVisibilityChange);
         };
-    }, []);
+    }, [isLowPerformance]);
 
     return (
         <canvas

@@ -9,7 +9,7 @@ import {
     TramFront,
     Loader2,
 } from 'lucide-react';
-import { FaChurch } from 'react-icons/fa';
+import { ChurchIcon } from '@/components/icons/ChurchIcon';
 import { Button } from '@/components/ui/button';
 import { useEffect, useRef, useState, useCallback } from 'react';
 import type { NaverMap } from '@/types/naver-maps';
@@ -48,12 +48,12 @@ export function LocationSection({
                 justifyContent: 'center',
                 width: '40px',
                 height: '40px',
-                background: 'var(--secondary)', // Use theme variable
+                background: 'var(--secondary)',
                 borderRadius: '50%',
                 boxShadow: '0 4px 6px rgba(0,0,0,0.2)',
             }}
         >
-            <FaChurch size={24} color="#ffffff" />
+            <ChurchIcon size={24} color="#ffffff" />
         </div>
     );
 
@@ -303,15 +303,23 @@ export function LocationSection({
             // 지도 생성 실패 시 무시
         }
     }, [CHURCH_COORDS.lat, CHURCH_COORDS.lng, userLocation, venue]);
-    // 수동으로 스크립트 로드하기 (더 안정적인 방법)
+    // Load Naver Maps script once and reuse
     useEffect(() => {
-        // 이미 스크립트가 로드되었는지 확인
+        // Check if script is already loaded
         if (window.naver && window.naver.maps) {
             setScriptLoaded(true);
             return;
         }
 
-        // 스크립트 요소 생성
+        // Check if script tag already exists
+        const existingScript = document.querySelector(`script[src*="maps.js"]`);
+        if (existingScript) {
+            // Script exists but might still be loading
+            existingScript.addEventListener('load', () => setScriptLoaded(true));
+            return;
+        }
+
+        // Create and append script element
         const script = document.createElement('script');
         script.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${process.env.NEXT_PUBLIC_NAVER_MAP_CLIENT_ID}`;
         script.async = true;
@@ -320,19 +328,8 @@ export function LocationSection({
             setScriptLoaded(true);
         };
 
-        script.onerror = () => {
-            // 스크립트 로드 실패 시 무시
-        };
-
         document.head.appendChild(script);
-
-        // 컴포넌트 언마운트 시 스크립트 제거
-        return () => {
-            const existingScript = document.querySelector(`script[src*="maps.js"]`);
-            if (existingScript) {
-                document.head.removeChild(existingScript);
-            }
-        };
+        // Note: Do not remove script on unmount to allow reuse
     }, []);
 
     // 스크립트 로드 후 지도 초기화

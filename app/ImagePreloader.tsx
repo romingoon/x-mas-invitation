@@ -5,15 +5,16 @@ import { CHOIRS } from '@/lib/constants';
 
 const ImagePreloader: React.FC = () => {
   useEffect(() => {
+    // Use link preload for better browser optimization
     const preloadImage = (src: string) => {
-      const img = new window.Image();
-      img.src = src;
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.as = 'image';
+      link.href = src;
+      document.head.appendChild(link);
     };
 
-    // 배경 이미지 프리로드
-    preloadImage('/images/background.jpg');
-
-    // 찬양대 이미지 프리로드
+    // Preload choir images (these are shown in the ChoirsSection)
     CHOIRS.forEach((choir) => {
       if (choir.image) {
         preloadImage(choir.image);

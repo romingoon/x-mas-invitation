@@ -1,13 +1,36 @@
 'use client';
 
-import { HomeSection } from "@/components/sections/HomeSection";
-import { IntroSection } from "@/components/sections/IntroSection";
-import { ProgramSection } from "@/components/sections/ProgramSection";
-import { ChoirsSection } from "@/components/sections/ChoirsSection";
-import { LocationSection } from "@/components/sections/LocationSection";
-import { ShareSection } from "@/components/sections/ShareSection";
+import dynamic from 'next/dynamic';
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useRef } from "react";
+import { HomeSection } from "@/components/sections/HomeSection";
+import { SectionSkeleton } from "@/components/ui/SectionSkeleton";
+
+// Dynamic imports for code splitting
+const IntroSection = dynamic(
+  () => import("@/components/sections/IntroSection").then(mod => ({ default: mod.IntroSection })),
+  { loading: () => <SectionSkeleton /> }
+);
+
+const ChoirsSection = dynamic(
+  () => import("@/components/sections/ChoirsSection").then(mod => ({ default: mod.ChoirsSection })),
+  { loading: () => <SectionSkeleton /> }
+);
+
+const ProgramSection = dynamic(
+  () => import("@/components/sections/ProgramSection").then(mod => ({ default: mod.ProgramSection })),
+  { loading: () => <SectionSkeleton /> }
+);
+
+const LocationSection = dynamic(
+  () => import("@/components/sections/LocationSection").then(mod => ({ default: mod.LocationSection })),
+  { loading: () => <SectionSkeleton /> }
+);
+
+const ShareSection = dynamic(
+  () => import("@/components/sections/ShareSection").then(mod => ({ default: mod.ShareSection })),
+  { loading: () => <SectionSkeleton /> }
+);
 
 function HomeContent() {
   const searchParams = useSearchParams();
