@@ -49,7 +49,7 @@ export function HomeSection({ onNavigate }: HomeSectionProps) {
 
             {/* Decorative elements could go here */}
             <div className="text-sm text-gray-400 mt-10">
-                4개 교회 청년 연합 찬양대 주최
+                새문안·동숭·자양·정릉교회 청년 찬양대 연합 주최
             </div>
         </div>
     );

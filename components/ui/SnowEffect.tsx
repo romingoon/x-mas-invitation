@@ -13,7 +13,17 @@ export function SnowEffect() {
         if (!ctx) return;
 
         let animationFrameId: number;
-        let particles: { x: number; y: number; radius: number; speed: number; opacity: number; type: 'circle' | 'snowflake' }[] = [];
+        let particles: {
+            x: number;
+            y: number;
+            radius: number;
+            speed: number;
+            opacity: number;
+            type: 'circle' | 'snowflake';
+            sway: number;
+            swaySpeed: number;
+            initialX: number;
+        }[] = [];
 
         const resizeCanvas = () => {
             canvas.width = window.innerWidth;
@@ -25,13 +35,17 @@ export function SnowEffect() {
             particles = [];
             for (let i = 0; i < particleCount; i++) {
                 const type = Math.random() > 0.8 ? 'snowflake' : 'circle';
+                const x = Math.random() * canvas.width;
                 particles.push({
-                    x: Math.random() * canvas.width,
+                    x: x,
                     y: Math.random() * canvas.height,
                     radius: type === 'snowflake' ? Math.random() * 10 + 10 : Math.random() * 3 + 1,
                     speed: Math.random() * 0.5 + 0.2,
                     opacity: Math.random() * 0.5 + 0.3,
                     type: type,
+                    sway: Math.random() * 20 + 10, // Sway amplitude
+                    swaySpeed: Math.random() * 0.02 + 0.01, // Sway frequency
+                    initialX: x,
                 });
             }
         };
@@ -56,9 +70,13 @@ export function SnowEffect() {
         const updateParticles = () => {
             particles.forEach((p) => {
                 p.y += p.speed;
+                // Apply horizontal sway
+                p.x = p.initialX + Math.sin(p.y * p.swaySpeed) * p.sway;
+
                 if (p.y > canvas.height) {
                     p.y = -p.radius;
-                    p.x = Math.random() * canvas.width;
+                    p.initialX = Math.random() * canvas.width;
+                    p.x = p.initialX;
                 }
             });
         };
