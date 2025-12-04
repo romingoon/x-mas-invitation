@@ -17,7 +17,7 @@ export function ProgramSection() {
                             </span>
                             <div className="flex-1">
                                 <div className="flex flex-wrap items-baseline gap-x-2 mb-1.5">
-                                    <h3 className="font-bold text-gray-900 text-base leading-tight">
+                                    <h3 className="font-bold text-gray-900 text-base leading-tight break-keep">
                                         {item.title}
                                     </h3>
                                     <span className="text-xs text-gray-500 font-medium">
@@ -25,7 +25,7 @@ export function ProgramSection() {
                                     </span>
                                 </div>
                                 <div className="space-y-0.5">
-                                    <p className="text-sm text-gray-800 font-medium">
+                                    <p className="text-sm text-gray-800 font-medium break-keep">
                                         {item.performer}
                                     </p>
                                     <p className="text-xs text-gray-500">

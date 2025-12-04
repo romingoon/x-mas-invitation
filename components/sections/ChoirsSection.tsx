@@ -57,7 +57,7 @@ function ChoirsContent() {
                             <CardTitle className="text-lg text-secondary" suppressHydrationWarning>{choir.name}</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <CardDescription className="text-gray-600 line-clamp-2" suppressHydrationWarning>
+                            <CardDescription className="text-gray-600 line-clamp-2 break-keep" suppressHydrationWarning>
                                 {choir.description}
                             </CardDescription>
                         </CardContent>
@@ -86,7 +86,7 @@ function ChoirsContent() {
                                     />
                                 )}
                             </div>
-                            <DialogDescription className="text-gray-700 text-base leading-relaxed whitespace-pre-wrap">
+                            <DialogDescription className="text-gray-700 text-base leading-relaxed whitespace-pre-wrap break-keep">
                                 {selectedChoir?.details || selectedChoir?.description}
                             </DialogDescription>
                         </div>

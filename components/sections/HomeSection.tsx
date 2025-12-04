@@ -18,7 +18,7 @@ export function HomeSection({ onNavigate }: HomeSectionProps) {
                     <br />
                     Invitation
                 </h1>
-                <p className="text-lg text-gray-600 font-light">
+                <p className="text-lg text-gray-600 font-light break-keep">
                     {FESTIVAL_INFO.invitationMessage}
                 </p>
             </div>
@@ -48,7 +48,7 @@ export function HomeSection({ onNavigate }: HomeSectionProps) {
             </div>
 
             {/* Decorative elements could go here */}
-            <div className="text-sm text-gray-400 mt-10">
+            <div className="text-sm text-gray-400 mt-10 break-keep">
                 새문안·동숭·자양·정릉교회 청년 찬양대 연합 주최
             </div>
         </div>

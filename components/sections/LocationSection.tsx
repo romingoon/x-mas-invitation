@@ -379,7 +379,7 @@ export function LocationSection({
                             <MapPin className="w-6 h-6 flex-shrink-0 mt-1" />
                             <div>
                                 <h3 className="text-xl mb-2 font-semibold">{venueFloor}</h3>
-                                <p className="text-sm text-white/90 leading-relaxed">
+                                <p className="text-sm text-white/90 leading-relaxed break-keep">
                                     {venueAddress}
                                 </p>
                             </div>
@@ -470,7 +470,7 @@ export function LocationSection({
                                     <h1 className="text-xl text-gray-900 mb-2 font-semibold">
                                         지하철 노선 안내
                                     </h1>
-                                    <p className="text-sm text-gray-600 leading-relaxed">
+                                    <p className="text-sm text-gray-600 leading-relaxed break-keep">
                                         5호선 광화문역 1번 출구 : 도보 약 270m (정문)
                                         <br />
                                         5호선 광화문역 8번 출구 : 도보 약 150m (후문)
@@ -489,14 +489,14 @@ export function LocationSection({
                                         <h1 className="text-xl text-gray-900 mb-2 font-semibold">
                                             버스 노선 안내
                                         </h1>
-                                        <p className="text-sm text-gray-600 leading-relaxed">
+                                        <p className="text-sm text-gray-600 leading-relaxed break-keep">
                                             간선버스 : 101 160 260 270 271 273 370 470 600 601 602
                                             603 704 705 706 720 721 741
                                         </p>
-                                        <p className="text-sm text-gray-600 leading-relaxed">
+                                        <p className="text-sm text-gray-600 leading-relaxed break-keep">
                                             지선버스 : 7011 7019
                                         </p>
-                                        <p className="text-sm text-gray-600 leading-relaxed">
+                                        <p className="text-sm text-gray-600 leading-relaxed break-keep">
                                             광역버스 : 1004 8600 8601 G6005 9701 9709 9710
                                         </p>
                                     </div>
@@ -513,10 +513,10 @@ export function LocationSection({
                                     <h4 className="text-sm text-gray-900 mb-1 font-semibold">
                                         자가용
                                     </h4>
-                                    <p className="text-sm text-gray-600 leading-relaxed">
+                                    <p className="text-sm text-gray-600 leading-relaxed break-keep">
                                         새문안교회 지하주차장(B5-B6) 이용 가능
                                     </p>
-                                    <p className="text-sm text-gray-600 leading-relaxed">
+                                    <p className="text-sm text-gray-600 leading-relaxed break-keep">
                                         교회 지하주차장 만차시, 콘코디언 빌딩 지하주차장 주차 후
                                         로비 안내데스크에서 주차할인 요청
                                     </p>
