@@ -118,7 +118,7 @@ function HomeContent() {
   }, [router, currentView]);
 
   return (
-    <div ref={containerRef} className="h-[calc(100dvh-5rem)] overflow-y-scroll snap-y snap-mandatory scroll-smooth no-scrollbar">
+    <div ref={containerRef} className="h-[calc(100dvh-5rem)] overflow-y-scroll snap-y snap-proximity scroll-smooth no-scrollbar">
       <section id="home" className="h-full snap-start w-full overflow-hidden">
         <HomeSection onNavigate={navigateTo} />
       </section>
