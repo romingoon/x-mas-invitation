@@ -11,16 +11,16 @@ interface HomeSectionProps {
 
 export function HomeSection({ onNavigate }: HomeSectionProps) {
     return (
-        <div className="relative flex flex-col items-center justify-center space-y-8 py-10 px-6 h-full overflow-y-auto bg-[url('/images/snow-bg.png')] bg-cover bg-center">
+        <div className="relative flex flex-col items-center justify-center space-y-5 py-6 px-6 h-full overflow-y-auto bg-[url('/images/snow-bg.png')] bg-cover bg-center">
             {/* Overlay for better text readability */}
             <div className="absolute inset-0 bg-white/30 backdrop-blur-[2px] -z-10" />
 
-            <div className="text-center space-y-6 opacity-0 animate-fade-in-up z-10">
+            <div className="text-center space-y-4 opacity-0 animate-fade-in-up z-10">
                 <div className="space-y-2">
-                    <p className="text-primary font-medium tracking-widest uppercase text-sm animate-fade-in animate-stagger-1">
+                    <p className="text-primary font-medium tracking-wide uppercase text-sm animate-fade-in animate-stagger-1">
                         2025 Joint Christmas Praise Festival
                     </p>
-                    <h1 className="text-5xl md:text-6xl font-bold text-gradient-christmas tracking-tight leading-tight drop-shadow-sm">
+                    <h1 className="text-4xl md:text-6xl font-bold text-gradient-christmas tracking-tight leading-tight drop-shadow-sm">
                         Christmas
                         <br />
                         Invitation
@@ -32,7 +32,7 @@ export function HomeSection({ onNavigate }: HomeSectionProps) {
             </div>
 
             <Card className="w-full max-w-sm md:max-w-md card-christmas shadow-xl border border-white/40 opacity-0 animate-fade-in-up animate-stagger-2 z-10">
-                <CardContent className="p-6 space-y-5">
+                <CardContent className="p-5 space-y-5">
                     <div className="flex items-center space-x-4 text-foreground group">
                         <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                             <Calendar className="w-5 h-5 text-primary" aria-hidden="true" />
@@ -63,7 +63,7 @@ export function HomeSection({ onNavigate }: HomeSectionProps) {
             <div className="w-full max-w-sm md:max-w-md opacity-0 animate-fade-in-up animate-stagger-3 z-10">
                 <Button
                     onClick={() => onNavigate('intro')}
-                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-lg py-7 rounded-2xl btn-glow shadow-lg shadow-primary/20 transition-all duration-300"
+                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-lg py-6 rounded-2xl btn-glow shadow-lg shadow-primary/20 transition-all duration-300"
                 >
                     초대장 열기
                 </Button>
