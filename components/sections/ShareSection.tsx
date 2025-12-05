@@ -54,7 +54,7 @@ export function ShareSection({ url = '' }: ShareSectionProps) {
             content: {
                 title: '성탄 연합 찬양제에 초대합니다',
                 description: '2025년 12월 20일(토) 오후 3시\n새문안교회 4층 대예배실',
-                imageUrl: 'https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20191207_200%2F1575645003467FPzEl_JPEG%2Fy7NcXhRAN3M-rgQCsjWM4WE0.jpg',
+                imageUrl: '/assets/kakao2.jpeg',
                 link: {
                     mobileWebUrl: pageUrl,
                     webUrl: pageUrl,
