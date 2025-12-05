@@ -47,7 +47,7 @@ export const ShareSection = memo(function ShareSection() {
         window.Kakao.Share.sendDefault({
             objectType: 'feed',
             content: {
-                title: '성탄 연합 찬양제에 초대합니다',
+                title: '2025 청년찬양대 연합 성탄찬양제에 초대합니다',
                 description: '2025년 12월 20일(토) 오후 3시\n새문안교회 4층 대예배실',
                 imageUrl: 'https://x-mas-invitation.vercel.app/images/thumb.jpeg',
                 link: {
