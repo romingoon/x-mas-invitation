@@ -16,61 +16,60 @@ export const HomeSection = memo(function HomeSection({ onNavigate }: HomeSection
             {/* Overlay for better text readability */}
             <div className="absolute inset-0 bg-white/30 backdrop-blur-[2px] -z-10" />
 
-            <div className="text-center space-y-4 opacity-0 animate-fade-in-up z-10">
-                <div className="space-y-2">
-                    <p className="text-primary font-medium tracking-wide uppercase text-sm animate-fade-in animate-stagger-1">
-                        2025 청년찬양대 연합 성탄찬양제 초대장
+            <div className="text-center space-y-3 opacity-0 animate-fade-in-up z-10">
+                <div className="space-y-1">
+                    <p className="text-primary font-semibold tracking-wide uppercase text-xs animate-fade-in animate-stagger-1">
+                        2025 청년찬양대 연합 성탄찬양제
                     </p>
-                    <h1 className="text-4xl md:text-6xl font-bold text-gradient-christmas tracking-tight leading-tight drop-shadow-sm">
+                    <h1 className="text-4xl md:text-5xl font-bold text-gradient-christmas tracking-tight leading-none drop-shadow-sm">
                         Christmas
                         <br />
                         Worship
                     </h1>
                 </div>
-                <p className="text-lg text-muted-foreground font-light break-keep max-w-xs mx-auto leading-relaxed">
+                <p className="text-sm text-muted-foreground font-normal break-keep max-w-xs mx-auto leading-normal">
                     {FESTIVAL_INFO.invitationMessage}
                 </p>
             </div>
 
-            <Card className="w-full max-w-xs md:max-w-sm card-christmas shadow-xl border border-white/40 opacity-0 animate-fade-in-up animate-stagger-2 z-10">
-                <CardContent className="p-4 space-y-3">
+            <Card className="w-full max-w-xs md:max-w-sm card-christmas-border shadow-xl opacity-0 animate-fade-in-up animate-stagger-2 z-10">
+                <CardContent className="p-4 space-y-2.5">
                     <div className="flex items-center space-x-3 text-foreground group">
-                        <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary/20 to-accent/10 border border-primary/20 flex items-center justify-center group-hover:from-primary/30 group-hover:to-accent/20 transition-colors">
                             <Calendar className="w-4 h-4 text-primary" aria-hidden="true" />
                         </div>
-                        <div className="flex flex-col text-left">
+                        <div className="flex flex-col text-left leading-snug">
                             <span className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wider">Date & Time</span>
-                            <span className="font-medium text-base">
+                            <span className="font-semibold text-sm">
                                 {FESTIVAL_INFO.date}
                             </span>
-                            <span className="font-medium text-base text-primary">
+                            <span className="font-semibold text-sm text-primary">
                                 {FESTIVAL_INFO.time}
                             </span>
                         </div>
                     </div>
-                    <div className="h-px w-full bg-border/50" />
+                    <div className="divider-christmas" />
                     <div className="flex items-center space-x-3 text-foreground group">
-                        <div className="w-8 h-8 rounded-full bg-secondary/10 flex items-center justify-center group-hover:bg-secondary/20 transition-colors">
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-secondary/20 to-accent/10 border border-secondary/20 flex items-center justify-center group-hover:from-secondary/30 group-hover:to-accent/20 transition-colors">
                             <MapPin className="w-4 h-4 text-secondary" aria-hidden="true" />
                         </div>
-                        <div className="flex flex-col text-left">
+                        <div className="flex flex-col text-left leading-snug">
                             <span className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wider">Location</span>
-                            <span className="font-medium text-base break-keep">{FESTIVAL_INFO.location}</span>
+                            <span className="font-semibold text-sm break-keep">{FESTIVAL_INFO.location}</span>
                         </div>
                     </div>
                 </CardContent>
             </Card>
 
-            <div className="text-center space-y-1 opacity-0 animate-fade-in-up animate-stagger-2 z-10">
-
-                <p className="text-sm text-muted-foreground/70 font-medium">
-                    <b> 주관 </b> {FESTIVAL_INFO.host}
+            <div className="text-center space-y-0.5 opacity-0 animate-fade-in-up animate-stagger-2 z-10">
+                <p className="text-xs text-muted-foreground/80 font-medium leading-relaxed">
+                    <b className="text-primary">주관</b> {FESTIVAL_INFO.host}
                 </p>
-                <p className="text-sm text-muted-foreground/70 font-medium">
-                    <b> 참여 교회 </b> {FESTIVAL_INFO.churches}
+                <p className="text-xs text-muted-foreground/80 font-medium leading-relaxed">
+                    <b className="text-secondary">참여 교회</b> {FESTIVAL_INFO.churches}
                 </p>
-                <p className="text-sm text-muted-foreground/70 font-medium">
-                    <b> 지휘 </b> {FESTIVAL_INFO.conductors}
+                <p className="text-xs text-muted-foreground/80 font-medium leading-relaxed">
+                    <b className="text-accent-foreground">지휘</b> {FESTIVAL_INFO.conductors}
                 </p>
             </div>
 

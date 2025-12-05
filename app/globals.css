@@ -189,6 +189,36 @@
     @apply border-none shadow-lg bg-white/90 backdrop-blur-md rounded-2xl border border-white/20;
   }
 
+  /* Christmas gradient border card */
+  .card-christmas-border {
+    @apply relative bg-white/95 backdrop-blur-md rounded-2xl shadow-lg overflow-hidden;
+  }
+
+  .card-christmas-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 2px;
+    background: linear-gradient(
+      135deg,
+      oklch(0.45 0.22 28) 0%,
+      oklch(0.88 0.18 85) 33%,
+      oklch(0.32 0.12 145) 66%,
+      oklch(0.45 0.22 28) 100%
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  /* Christmas gold divider */
+  .divider-christmas {
+    @apply h-px w-full bg-gradient-to-r from-transparent via-accent/60 to-transparent;
+  }
+
   /* Enhanced card with hover effect */
   .card-hover-lift {
     transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
