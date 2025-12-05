@@ -54,7 +54,7 @@ export function ShareSection({ url = '' }: ShareSectionProps) {
             content: {
                 title: '성탄 연합 찬양제에 초대합니다',
                 description: '2025년 12월 20일(토) 오후 3시\n새문안교회 4층 대예배실',
-                imageUrl: 'https://x-mas-invitation.vercel.app/assets/kakao2.jpeg',
+                imageUrl: 'https://x-mas-invitation.vercel.app/images/kakao2.jpeg',
                 link: {
                     mobileWebUrl: pageUrl,
                     webUrl: pageUrl,

@@ -66,17 +66,16 @@ export const PROGRAM = [
   { id: 12, title: "아기 예수", composer: "Pietro Yon(Arr. Mark Hayes)", performer: "연합찬양대 Unit 4", details: "(지휘 조성은, 피아노 문예원)" },
   { id: 13, title: "영광송(Gloria!)", composer: "Mary McDonald", performer: "청년 연합찬양대", details: "(지휘 조은영, 피아노 이태운, 오르간 장연진)" },
   { id: 14, title: "참 반가운 성도여", composer: "Arr. Brad Nix", performer: "청년 연합찬양대", details: "(지휘 조은영, 피아노 이태운, 오르간 장연진)" },
-  { id: 15, title: "은혜 아니면", composer: "조성은", performer: "청년 연합찬양대", details: "(지휘 안정현, 피아노 장연진) *앵콜곡" },
 ];
 
 export const LOCATION = {
-  name: "새문안교회 지하2층 언더우드홀",
+  name: "새문안교회 4층 대예배실",
   address: "서울시 종로구 새문안로 79",
   latitude: 37.5700,
   longitude: 126.9718,
   naverMapUrl: "https://naver.me/G657fW17", // Placeholder
   publicTransport: "지하철 5호선 광화문역 1번 출구에서 270m, 8번출구에서 150m(후문)",
-  parking: "교회 지하 주차장 (B5-B6) 이용 가능합니다. 만차 시 콘코디언빌딩 지하주차장 주차 후 교회 1층 로비에서 주차 할인 요청",
+  parking: "새문안교회 지하 주차장 (B5-B6) 이용 가능합니다. 만차 시 콘코디언빌딩 지하주차장 주차 후 교회 1층 로비에서 주차 할인 요청",
 };
 
 export const BGM_PLAYLIST = [
