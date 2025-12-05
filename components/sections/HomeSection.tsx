@@ -69,10 +69,7 @@ export function HomeSection({ onNavigate }: HomeSectionProps) {
                 </Button>
             </div>
 
-            <div className="absolute bottom-8 left-0 right-0 flex flex-col items-center justify-center opacity-0 animate-fade-in animate-stagger-4 z-10">
-                <span className="text-xs text-muted-foreground mb-2">Scroll Down</span>
-                <ChevronDown className="w-6 h-6 text-primary animate-bounce opacity-50" />
-            </div>
+
         </div >
     );
 }

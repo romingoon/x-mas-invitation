@@ -12,16 +12,16 @@ import { Analytics } from "@vercel/analytics/next"
 export const metadata: Metadata = {
   metadataBase: new URL('https://x-mas-invitation.vercel.app/'),
   title: '성탄 연합 찬양제',
-  description: '2025년 12월 20일(토) 오후 3시 새문안교회 4층 대예배당',
+  description: '2025년 12월 20일(토) 오후 3시\n새문안교회 4층 대예배실',
   openGraph: {
     title: '성탄 연합 찬양제',
-    description: '2025년 12월 20일(토) 오후 3시 새문안교회 4층 대예배당',
+    description: '2025년 12월 20일(토) 오후 3시\n새문안교회 4층 대예배실',
     url: 'https://x-mas-invitation.vercel.app',
     siteName: '성탄 연합 찬양제',
     type: 'article',
     images: [
       {
-        url: '/images/thumbnail.jpg',
+        url: '/assets/kakao2.jpeg',
         width: 800,
         height: 400,
         alt: '미리보기 이미지 설명',
