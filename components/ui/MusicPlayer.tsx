@@ -143,7 +143,7 @@ export const MusicPlayer = memo(function MusicPlayer() {
                 onClick={() => setShowControls(!showControls)}
                 className={cn(
                     "rounded-full w-12 h-12 shadow-lg transition-all duration-300",
-                    isPlaying ? "bg-red-600 hover:bg-red-700 text-white animate-pulse-slow" : "bg-white hover:bg-gray-50 text-gray-600 border border-gray-200"
+                    isPlaying ? "bg-[#228B22] hover:bg-[#1e7a1e] text-white animate-pulse-slow" : "bg-white hover:bg-gray-50 text-gray-600 border border-gray-200"
                 )}
             >
                 {isPlaying ? (
