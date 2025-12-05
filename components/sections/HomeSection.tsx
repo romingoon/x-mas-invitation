@@ -40,7 +40,10 @@ export function HomeSection({ onNavigate }: HomeSectionProps) {
                         <div className="flex flex-col text-left">
                             <span className="text-xs text-muted-foreground font-semibold uppercase tracking-wider">Date & Time</span>
                             <span className="font-medium text-lg">
-                                {FESTIVAL_INFO.date} <span className="text-primary mx-1">|</span> {FESTIVAL_INFO.time}
+                                {FESTIVAL_INFO.date}
+                            </span>
+                            <span className="font-medium text-lg text-primary">
+                                {FESTIVAL_INFO.time}
                             </span>
                         </div>
                     </div>
@@ -70,6 +73,6 @@ export function HomeSection({ onNavigate }: HomeSectionProps) {
                 <span className="text-xs text-muted-foreground mb-2">Scroll Down</span>
                 <ChevronDown className="w-6 h-6 text-primary animate-bounce opacity-50" />
             </div>
-        </div>
+        </div >
     );
 }

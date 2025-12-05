@@ -29,7 +29,7 @@ interface UserLocation {
 
 export function LocationSection({
     venue = '새문안교회',
-    venueFloor = '새문안교회 4층 대예배당',
+    venueFloor = '새문안교회 4층 대예배실',
     venueAddress = '서울특별시 종로구 새문안로 79',
 }: LocationSectionProps) {
     const mapRef = useRef<HTMLDivElement>(null);
