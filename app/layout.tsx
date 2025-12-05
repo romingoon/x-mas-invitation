@@ -11,13 +11,13 @@ import { Analytics } from "@vercel/analytics/next"
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://x-mas-invitation.vercel.app/'),
-  title: '성탄 연합 찬양제',
+  title: '2025 청년찬양대 연합 성탄 찬양제',
   description: '2025년 12월 20일(토) 오후 3시\n새문안교회 4층 대예배실',
   openGraph: {
-    title: '성탄 연합 찬양제',
+    title: '2025 청년찬양대 연합 성탄 찬양제',
     description: '2025년 12월 20일(토) 오후 3시\n새문안교회 4층 대예배실',
     url: 'https://x-mas-invitation.vercel.app',
-    siteName: '성탄 연합 찬양제',
+    siteName: '2025 청년찬양대 연합 성탄 찬양제',
     type: 'article',
     images: [
       {
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
       },
     ],
     locale: 'ko_KR',
-    section: '성탄 연합 찬양제 초대장 및 프로그램북',
+    section: '2025 청년찬양대 연합 성탄 찬양제 초대장 및 프로그램북',
   },
 };
 
@@ -46,7 +46,7 @@ export default function RootLayout({
         <BackButtonHandler />
         <ImagePreloader />
         <MusicPlayer />
-        <main className="pb-20 min-h-screen px-4 relative z-10">
+        <main className="pb-20 min-h-screen relative z-10">
           {children}
         </main>
         <BottomNav />

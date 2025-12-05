@@ -120,7 +120,7 @@ function ChoirsContent() {
 
 export function ChoirsSection() {
     return (
-        <div className="section-container">
+        <div className="section-container" suppressHydrationWarning>
             <h2 className="section-title opacity-0 animate-fade-in-up text-center mb-8 text-gradient-christmas">참여 찬양대</h2>
             <Suspense fallback={
                 <div className="grid gap-6 pb-nav">

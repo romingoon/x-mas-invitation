@@ -32,6 +32,11 @@ const ShareSection = dynamic(
   { loading: () => <SectionSkeleton /> }
 );
 
+const PosterSection = dynamic(
+  () => import("@/components/sections/PosterSection").then(mod => ({ default: mod.default })),
+  { loading: () => <SectionSkeleton /> }
+);
+
 function HomeContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -119,6 +124,10 @@ function HomeContent() {
 
   return (
     <div ref={containerRef} className="h-[calc(100dvh-5rem)] overflow-y-scroll snap-y snap-proximity scroll-smooth no-scrollbar">
+      <section id="poster" className="h-full snap-start w-full overflow-hidden">
+        <PosterSection containerRef={containerRef} />
+      </section>
+
       <section id="home" className="h-full snap-start w-full overflow-hidden">
         <HomeSection onNavigate={navigateTo} />
       </section>

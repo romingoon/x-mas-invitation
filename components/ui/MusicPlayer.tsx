@@ -98,7 +98,7 @@ export function MusicPlayer() {
     };
 
     return (
-        <div className="fixed bottom-20 right-4 z-50 flex flex-col items-end gap-2">
+        <div className="fixed bottom-20 right-4 z-50 flex flex-col items-end gap-2" suppressHydrationWarning>
             {/* Expanded Controls */}
             {showControls && (
                 <div className="bg-white/90 backdrop-blur-md p-3 rounded-2xl shadow-lg border border-gray-200 mb-2 animate-in slide-in-from-bottom-2 fade-in duration-200">

@@ -353,7 +353,7 @@ export function LocationSection({
     }, [userLocation, initializeMap, mapLoaded]);
 
     return (
-        <div className="h-full overflow-y-auto pb-24">
+        <div className="h-full overflow-y-auto pb-24" suppressHydrationWarning>
             <div className="max-w-lg mx-auto">
                 {/* Header */}
                 <motion.div

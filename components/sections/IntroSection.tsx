@@ -2,7 +2,7 @@ import { FESTIVAL_INFO } from "@/lib/constants";
 
 export function IntroSection() {
     return (
-        <div className="section-container">
+        <div className="section-container" suppressHydrationWarning>
             <h2 className="section-title opacity-0 animate-fade-in-up">소개</h2>
 
             <div className="prose prose-primary max-w-none opacity-0 animate-fade-in-up animate-stagger-1">

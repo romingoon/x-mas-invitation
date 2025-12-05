@@ -54,7 +54,7 @@ export function ShareSection({ url = '' }: ShareSectionProps) {
             content: {
                 title: '성탄 연합 찬양제에 초대합니다',
                 description: '2025년 12월 20일(토) 오후 3시\n새문안교회 4층 대예배실',
-                imageUrl: 'https://x-mas-invitation.vercel.app/images/kakao2.jpeg',
+                imageUrl: 'https://x-mas-invitation.vercel.app/images/thumb.jpeg',
                 link: {
                     mobileWebUrl: pageUrl,
                     webUrl: pageUrl,
@@ -83,7 +83,7 @@ export function ShareSection({ url = '' }: ShareSectionProps) {
     };
 
     return (
-        <div className="h-full overflow-y-auto no-scrollbar">
+        <div className="h-full overflow-y-auto no-scrollbar" suppressHydrationWarning>
             <div className="flex flex-col items-center justify-center min-h-full space-y-8 py-10 px-6 pb-nav">
                 <div className="text-center space-y-4 opacity-0 animate-fade-in-up">
                     <h2 className="section-title">초대하기</h2>
