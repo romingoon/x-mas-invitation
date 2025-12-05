@@ -362,8 +362,8 @@ export function LocationSection({
                     viewport={{ once: true }}
                     className="pt-8 pb-6 px-6 text-center"
                 >
-                    <h2 className="text-2xl text-gray-900 mb-1">오시는 길</h2>
-                    <p className="text-sm text-gray-600">Location</p>
+                    <h2 className="text-2xl font-bold text-gradient-christmas mb-1">오시는 길</h2>
+                    <p className="text-sm text-muted-foreground">Location</p>
                 </motion.div>
 
                 <div className="px-6 space-y-5">
@@ -373,13 +373,15 @@ export function LocationSection({
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.1 }}
-                        className="rounded-2xl overflow-hidden shadow-sm bg-gradient-to-br from-secondary to-secondary/80 p-6 text-secondary-foreground"
+                        className="rounded-2xl overflow-hidden shadow-md bg-gradient-to-br from-primary/10 via-white/50 to-accent/10 p-6 border border-primary/10 backdrop-blur-sm"
                     >
                         <div className="flex items-start gap-3">
-                            <MapPin className="w-6 h-6 flex-shrink-0 mt-1" />
+                            <div className="p-2 bg-primary/10 rounded-full text-primary">
+                                <MapPin className="w-6 h-6 flex-shrink-0" />
+                            </div>
                             <div>
-                                <h3 className="text-xl mb-2 font-semibold">{venueFloor}</h3>
-                                <p className="text-sm text-white/90 leading-relaxed break-keep">
+                                <h3 className="text-xl mb-2 font-bold text-primary">{venueFloor}</h3>
+                                <p className="text-sm text-foreground/80 leading-relaxed break-keep font-medium">
                                     {venueAddress}
                                 </p>
                             </div>
@@ -392,20 +394,20 @@ export function LocationSection({
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.2 }}
-                        className="bg-white rounded-2xl p-4 shadow-sm"
+                        className="card-christmas p-4"
                     >
                         {' '}
                         {/* 지도 영역 */}
                         <div
                             ref={mapRef}
-                            className="w-full h-64 rounded-xl overflow-hidden bg-gray-100 relative"
+                            className="w-full h-64 rounded-xl overflow-hidden bg-gray-100 relative border border-border"
                         >
                             {' '}
                             {/* 로딩 인디케이터 */}
                             {!mapLoaded && (
                                 <div className="absolute inset-0 flex items-center justify-center bg-gray-100 z-10">
                                     <div className="text-center">
-                                        <Loader2 className="w-8 h-8 animate-spin text-secondary mx-auto mb-2" />
+                                        <Loader2 className="w-8 h-8 animate-spin text-primary mx-auto mb-2" />
                                         <p className="text-sm text-gray-600">지도 로딩 중...</p>
                                         <p className="text-xs text-gray-500 mt-1">
                                             스크립트 로드: {scriptLoaded ? '완료' : '진행 중'}
@@ -415,10 +417,10 @@ export function LocationSection({
                             )}
                         </div>
                         {/* 버튼 영역 */}
-                        <div className="grid grid-cols-2 gap-2 mt-4">
+                        <div className="grid grid-cols-2 gap-3 mt-4">
                             <Button
                                 onClick={handleOpenNaverMap}
-                                className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground rounded-xl"
+                                className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground rounded-xl btn-glow shadow-md border-none"
                             >
                                 <MapPin className="w-4 h-4 mr-2" />
                                 지도 열기
@@ -426,7 +428,7 @@ export function LocationSection({
                             <Button
                                 onClick={handleNavigationFromCurrentLocation}
                                 disabled={locationLoading}
-                                className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground rounded-xl disabled:opacity-50"
+                                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl btn-glow shadow-md border-none disabled:opacity-50"
                             >
                                 {locationLoading ? (
                                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
@@ -442,7 +444,7 @@ export function LocationSection({
                                 <Button
                                     onClick={handleNavigation}
                                     variant="outline"
-                                    className="w-full rounded-xl border-secondary/20 text-secondary hover:bg-secondary/10"
+                                    className="w-full rounded-xl border-primary/20 text-primary hover:bg-primary/5"
                                 >
                                     <Navigation className="w-4 h-4 mr-2" />
                                     기본 길찾기
@@ -457,68 +459,77 @@ export function LocationSection({
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.3 }}
-                        className="space-y-3"
+                        className="space-y-4"
                     >
-                        <h3 className="font-bold text-lg text-gray-900">오시는 길</h3>
+                        <h3 className="font-bold text-lg text-primary ml-1">교통편 안내</h3>
 
-                        <div className="bg-white rounded-xl p-5 shadow-sm">
+                        <div className="card-christmas p-5">
                             <div className="flex items-start gap-4">
-                                <div className="p-2.5 bg-secondary/10 rounded-lg flex-shrink-0">
-                                    <TramFront className="w-5 h-5 text-secondary" />
+                                <div className="p-2.5 bg-secondary/10 rounded-lg flex-shrink-0 text-secondary">
+                                    <TramFront className="w-5 h-5" />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <h1 className="text-xl text-gray-900 mb-2 font-semibold">
-                                        지하철 노선 안내
+                                    <h1 className="text-lg text-secondary mb-2 font-bold">
+                                        지하철
                                     </h1>
-                                    <p className="text-sm text-gray-600 leading-relaxed break-keep">
-                                        5호선 광화문역 1번 출구 : 도보 약 270m (정문)
+                                    <p className="text-sm text-muted-foreground leading-relaxed break-keep">
+                                        <span className="font-semibold text-[#8B50A4]">5호선</span> 광화문역 1번 출구 : 도보 약 270m (정문)
                                         <br />
-                                        5호선 광화문역 8번 출구 : 도보 약 150m (후문)
+                                        <span className="font-semibold text-[#8B50A4]">5호선</span> 광화문역 8번 출구 : 도보 약 150m (후문)
                                         <br />
-                                        3호선 경복궁역 : 도보 약 500m (후문)
+                                        <span className="font-semibold text-[#EF7C1C]">3호선</span> 경복궁역 : 도보 약 500m (후문)
                                     </p>
                                 </div>
                             </div>
 
-                            <div className="mt-4 pt-4 border-t border-gray-100">
+                            <div className="mt-4 pt-4 border-t border-border/50">
                                 <div className="flex items-start gap-4">
-                                    <div className="p-2.5 bg-blue-50 rounded-lg flex-shrink-0">
-                                        <BusFront className="w-5 h-5 text-blue-700" />
+                                    <div className="p-2.5 bg-primary/10 rounded-lg flex-shrink-0 text-primary">
+                                        <BusFront className="w-5 h-5" />
                                     </div>
                                     <div className="flex-1 min-w-0">
-                                        <h1 className="text-xl text-gray-900 mb-2 font-semibold">
-                                            버스 노선 안내
+                                        <h1 className="text-lg text-primary mb-2 font-bold">
+                                            버스
                                         </h1>
-                                        <p className="text-sm text-gray-600 leading-relaxed break-keep">
-                                            간선버스 : 101 160 260 270 271 273 370 470 600 601 602
-                                            603 704 705 706 720 721 741
-                                        </p>
-                                        <p className="text-sm text-gray-600 leading-relaxed break-keep">
-                                            지선버스 : 7011 7019
-                                        </p>
-                                        <p className="text-sm text-gray-600 leading-relaxed break-keep">
-                                            광역버스 : 1004 8600 8601 G6005 9701 9709 9710
-                                        </p>
+                                        <div className="space-y-2">
+                                            <div>
+                                                <span className="text-xs font-bold text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded mr-1">간선</span>
+                                                <p className="text-sm text-muted-foreground leading-relaxed break-keep inline">
+                                                    101, 160, 260, 270, 271, 273, 370, 470, 600, 601, 602, 603, 704, 705, 706, 720, 721, 741
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <span className="text-xs font-bold text-green-600 bg-green-50 px-1.5 py-0.5 rounded mr-1">지선</span>
+                                                <p className="text-sm text-muted-foreground leading-relaxed break-keep inline">
+                                                    7011, 7019
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <span className="text-xs font-bold text-red-600 bg-red-50 px-1.5 py-0.5 rounded mr-1">광역</span>
+                                                <p className="text-sm text-muted-foreground leading-relaxed break-keep inline">
+                                                    1004, 8600, 8601, G6005, 9701, 9709, 9710
+                                                </p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="bg-white rounded-xl p-5 shadow-sm">
+                        <div className="card-christmas p-5">
                             <div className="flex items-start gap-4">
-                                <div className="p-2.5 bg-purple-50 rounded-lg flex-shrink-0">
-                                    <CarFront className="w-5 h-5 text-purple-700" />
+                                <div className="p-2.5 bg-accent/20 rounded-lg flex-shrink-0 text-accent-foreground">
+                                    <CarFront className="w-5 h-5" />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <h4 className="text-sm text-gray-900 mb-1 font-semibold">
+                                    <h4 className="text-lg text-foreground mb-2 font-bold">
                                         자가용
                                     </h4>
-                                    <p className="text-sm text-gray-600 leading-relaxed break-keep">
+                                    <p className="text-sm text-muted-foreground leading-relaxed break-keep">
                                         새문안교회 지하주차장(B5-B6) 이용 가능
                                     </p>
-                                    <p className="text-sm text-gray-600 leading-relaxed break-keep">
-                                        교회 지하주차장 만차시, 콘코디언 빌딩 지하주차장 주차 후
-                                        로비 안내데스크에서 주차할인 요청
+                                    <p className="text-xs text-muted-foreground/80 leading-relaxed break-keep mt-1 bg-muted p-2 rounded-lg">
+                                        ※ 교회 지하주차장 만차시, 콘코디언 빌딩 지하주차장 주차 후 로비 안내데스크에서 주차할인 요청
                                     </p>
                                 </div>
                             </div>
@@ -531,9 +542,9 @@ export function LocationSection({
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.5 }}
-                        className="bg-secondary/10 rounded-xl p-4 border border-secondary/20"
+                        className="bg-primary/5 rounded-xl p-4 border border-primary/10 text-center"
                     >
-                        <p className="text-xs text-secondary text-center">
+                        <p className="text-xs text-primary font-medium">
                             장애인 편의시설이 완비되어 있습니다
                         </p>
                     </motion.div>
