@@ -2,7 +2,7 @@
 
 import { BGM_PLAYLIST } from "@/lib/constants";
 import { Disc, Music, Pause, Play, SkipForward, Volume2, VolumeX } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Button } from "./button";
 import { cn } from "@/lib/utils";
 
@@ -16,6 +16,22 @@ export function MusicPlayer() {
 
     const currentTrack = BGM_PLAYLIST[currentTrackIndex];
 
+    const handleInteraction = useCallback(() => {
+        if (!hasInteracted) {
+            setHasInteracted(true);
+            if (audioRef.current && audioRef.current.paused) {
+                audioRef.current.play()
+                    .then(() => setIsPlaying(true))
+                    .catch((error) => {
+                        // Only log if it's not an autoplay policy error
+                        if (!(error instanceof DOMException && error.name === 'NotAllowedError')) {
+                            console.error('Audio playback failed on interaction:', error);
+                        }
+                    });
+            }
+        }
+    }, [hasInteracted]);
+
     useEffect(() => {
         // 첫 로드 시 자동 재생 시도
         const attemptPlay = async () => {
@@ -24,9 +40,11 @@ export function MusicPlayer() {
                     audioRef.current.volume = 0.5; // 초기 볼륨 50%
                     await audioRef.current.play();
                     setIsPlaying(true);
-                } catch {
+                } catch (error) {
                     // Auto-play blocked by browser policy - expected behavior
-                    // We wait for user interaction
+                    if (!(error instanceof DOMException && error.name === 'NotAllowedError')) {
+                        console.error('Auto-play failed:', error);
+                    }
                     setIsPlaying(false);
                 }
             }
@@ -34,23 +52,13 @@ export function MusicPlayer() {
 
         attemptPlay();
 
-        // 사용자 인터랙션 감지 (첫 클릭 시 재생 시도)
-        const handleInteraction = () => {
-            if (!hasInteracted) {
-                setHasInteracted(true);
-                if (audioRef.current && audioRef.current.paused) {
-                    audioRef.current.play().then(() => setIsPlaying(true)).catch(() => { });
-                }
-            }
-        };
-
         window.addEventListener('click', handleInteraction);
         window.addEventListener('touchstart', handleInteraction);
         return () => {
             window.removeEventListener('click', handleInteraction);
             window.removeEventListener('touchstart', handleInteraction);
         };
-    }, [hasInteracted]);
+    }, [handleInteraction]);
 
     // 백그라운드 전환 시 오디오 일시정지 처리
     useEffect(() => {
@@ -70,32 +78,37 @@ export function MusicPlayer() {
     useEffect(() => {
         if (audioRef.current) {
             if (isPlaying) {
-                audioRef.current.play().catch(() => setIsPlaying(false));
+                audioRef.current.play().catch((error) => {
+                    if (!(error instanceof DOMException && error.name === 'NotAllowedError')) {
+                        console.error('Audio playback failed:', error);
+                    }
+                    setIsPlaying(false);
+                });
             } else {
                 audioRef.current.pause();
             }
         }
     }, [isPlaying, currentTrackIndex]);
 
-    const togglePlay = () => {
-        setIsPlaying(!isPlaying);
-    };
+    const togglePlay = useCallback(() => {
+        setIsPlaying((prev) => !prev);
+    }, []);
 
-    const toggleMute = () => {
+    const toggleMute = useCallback(() => {
         if (audioRef.current) {
             audioRef.current.muted = !isMuted;
-            setIsMuted(!isMuted);
+            setIsMuted((prev) => !prev);
         }
-    };
+    }, [isMuted]);
 
-    const nextTrack = () => {
+    const nextTrack = useCallback(() => {
         setCurrentTrackIndex((prev) => (prev + 1) % BGM_PLAYLIST.length);
         setIsPlaying(true);
-    };
+    }, []);
 
-    const handleEnded = () => {
+    const handleEnded = useCallback(() => {
         nextTrack();
-    };
+    }, [nextTrack]);
 
     return (
         <div className="fixed bottom-20 right-4 z-50 flex flex-col items-end gap-2" suppressHydrationWarning>

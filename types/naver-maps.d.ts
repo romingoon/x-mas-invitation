@@ -53,6 +53,11 @@ export interface BoundsLiteral {
     east: number;
 }
 
+export interface ControlOptions {
+    position?: ControlPosition;
+    style?: ControlStyle;
+}
+
 export interface MapOptions {
     background?: string;
     baseTileOpacity?: number;
@@ -65,11 +70,11 @@ export interface MapOptions {
     draggable?: boolean;
     keyboardShortcuts?: boolean;
     logoControl?: boolean;
-    logoControlOptions?: any;
+    logoControlOptions?: ControlOptions;
     mapDataControl?: boolean;
-    mapDataControlOptions?: any;
+    mapDataControlOptions?: ControlOptions;
     mapTypeControl?: boolean;
-    mapTypeControlOptions?: any;
+    mapTypeControlOptions?: ControlOptions;
     mapTypeId?: string;
     maxBounds?: Bounds | BoundsLiteral;
     maxZoom?: number;
@@ -78,14 +83,14 @@ export interface MapOptions {
     pinchZoom?: boolean;
     resizeEnable?: boolean;
     scaleControl?: boolean;
-    scaleControlOptions?: any;
+    scaleControlOptions?: ControlOptions;
     scrollWheel?: boolean;
     overlayZoomEffect?: string;
     tileSpare?: number;
     tileTransition?: boolean;
     zoom?: number;
     zoomControl?: boolean;
-    zoomControlOptions?: any;
+    zoomControlOptions?: ControlOptions;
     zoomOrigin?: LatLng | LatLngLiteral;
 }
 
@@ -101,6 +106,38 @@ export interface TransitionOptions {
     easing?: string;
 }
 
+export interface MarkerIcon {
+    content?: string;
+    size?: Size;
+    anchor?: Point;
+    url?: string;
+    scaledSize?: Size;
+    origin?: Point;
+}
+
+export interface MarkerOptions {
+    position: LatLng | LatLngLiteral;
+    map?: NaverMap;
+    title?: string;
+    icon?: MarkerIcon;
+    clickable?: boolean;
+    draggable?: boolean;
+    visible?: boolean;
+    zIndex?: number;
+}
+
+export interface Marker {
+    setPosition(position: LatLng | LatLngLiteral): void;
+    getPosition(): LatLng;
+    setMap(map: NaverMap | null): void;
+    getMap(): NaverMap | null;
+    setIcon(icon: MarkerIcon): void;
+    setVisible(visible: boolean): void;
+}
+
+type ControlPosition = symbol;
+type ControlStyle = symbol;
+
 declare global {
     interface Window {
         naver: {
@@ -109,12 +146,16 @@ declare global {
                 LatLng: new (lat: number, lng: number) => LatLng;
                 Point: new (x: number, y: number) => Point;
                 Size: new (width: number, height: number) => Size;
-                Marker: new (options: any) => any;
+                Marker: new (options: MarkerOptions) => Marker;
                 Position: {
-                    TOP_RIGHT: any;
+                    TOP_RIGHT: ControlPosition;
+                    TOP_LEFT: ControlPosition;
+                    BOTTOM_RIGHT: ControlPosition;
+                    BOTTOM_LEFT: ControlPosition;
                 };
                 ZoomControlStyle: {
-                    SMALL: any;
+                    SMALL: ControlStyle;
+                    LARGE: ControlStyle;
                 };
             };
         };

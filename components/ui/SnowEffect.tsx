@@ -154,6 +154,8 @@ export function SnowEffect() {
         <canvas
             ref={canvasRef}
             className="fixed inset-0 pointer-events-none z-30"
+            aria-hidden="true"
+            role="presentation"
         />
     );
 }

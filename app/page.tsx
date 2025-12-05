@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useRef } from "react";
+import { Suspense, useCallback, useEffect, useRef } from "react";
 import { HomeSection } from "@/components/sections/HomeSection";
 import { SectionSkeleton } from "@/components/ui/SectionSkeleton";
 
@@ -45,13 +45,13 @@ function HomeContent() {
   const isProgrammaticScroll = useRef(false);
   const isUrlUpdateFromScroll = useRef(false);
 
-  const navigateTo = (view: string) => {
+  const navigateTo = useCallback((view: string) => {
     const newParams = new URLSearchParams(searchParams.toString());
     newParams.set('view', view);
     router.replace(`/?${newParams.toString()}`);
-  };
+  }, [searchParams, router]);
 
-  const scrollToSection = (sectionId: string) => {
+  const scrollToSection = useCallback((sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
       isProgrammaticScroll.current = true;
@@ -62,7 +62,7 @@ function HomeContent() {
         isProgrammaticScroll.current = false;
       }, 1000);
     }
-  };
+  }, []);
 
   // URL query param이 변경되면 해당 섹션으로 스크롤
   useEffect(() => {
@@ -86,7 +86,7 @@ function HomeContent() {
         scrollToSection(sectionId);
       }
     }
-  }, [currentView]);
+  }, [currentView, scrollToSection]);
 
   // 스크롤 감지 및 URL 업데이트
   useEffect(() => {
@@ -120,7 +120,7 @@ function HomeContent() {
     sections.forEach((section) => observer.observe(section));
 
     return () => observer.disconnect();
-  }, [router, currentView]);
+  }, [router, currentView, searchParams]);
 
   return (
     <div ref={containerRef} className="h-[calc(100dvh-5rem)] overflow-y-scroll snap-y snap-proximity scroll-smooth no-scrollbar">

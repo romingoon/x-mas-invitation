@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { FESTIVAL_INFO } from "@/lib/constants";
-import { Calendar, MapPin, ChevronDown } from "lucide-react";
+import { Calendar, MapPin } from "lucide-react";
 
 interface HomeSectionProps {
     onNavigate: (sectionId: string) => void;

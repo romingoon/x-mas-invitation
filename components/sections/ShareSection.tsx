@@ -5,27 +5,24 @@ import { Card, CardContent } from "@/components/ui/card";
 import { FESTIVAL_INFO } from "@/lib/constants";
 import { Calendar, MapPin, Link as LinkIcon, Check } from "lucide-react";
 import { KakaoTalkIcon } from "@/components/icons/KakaoTalkIcon";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+import Image from "next/image";
 
+const PAGE_URL = 'https://x-mas-invitation.vercel.app/';
 
-interface ShareSectionProps {
-    url?: string;
-    title?: string;
-}
-
-
-export function ShareSection({ url = '' }: ShareSectionProps) {
-    const [isKakaoInitialized, setIsKakaoInitialized] = useState(false);
+export function ShareSection() {
+    // Initialize state with actual Kakao SDK state to avoid synchronous setState in effect
+    const [isKakaoInitialized, setIsKakaoInitialized] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return window.Kakao?.isInitialized() ?? false;
+        }
+        return false;
+    });
     const [isCopied, setIsCopied] = useState(false);
-    const currentUrl =
-        url || (typeof window !== 'undefined' ? window.location.href : '');
-
-    const pageUrl = 'https://x-mas-invitation.vercel.app/';
 
     useEffect(() => {
-        // Check if already initialized
-        if (window.Kakao?.isInitialized()) {
-            setIsKakaoInitialized(true);
+        // If already initialized during state initialization, skip
+        if (isKakaoInitialized) {
             return;
         }
 
@@ -41,9 +38,9 @@ export function ShareSection({ url = '' }: ShareSectionProps) {
         return () => {
             window.removeEventListener('kakaoReady', handleKakaoReady);
         };
-    }, []);
+    }, [isKakaoInitialized]);
 
-    const handleKakaoShare = () => {
+    const handleKakaoShare = useCallback(() => {
         if (!window.Kakao || !window.Kakao.isInitialized()) {
             alert('카카오톡 공유 기능을 사용할 수 없습니다.');
             return;
@@ -56,31 +53,32 @@ export function ShareSection({ url = '' }: ShareSectionProps) {
                 description: '2025년 12월 20일(토) 오후 3시\n새문안교회 4층 대예배실',
                 imageUrl: 'https://x-mas-invitation.vercel.app/images/thumb.jpeg',
                 link: {
-                    mobileWebUrl: pageUrl,
-                    webUrl: pageUrl,
+                    mobileWebUrl: PAGE_URL,
+                    webUrl: PAGE_URL,
                 },
             },
             buttons: [
                 {
                     title: '초대장 보기',
                     link: {
-                        mobileWebUrl: pageUrl,
-                        webUrl: pageUrl,
+                        mobileWebUrl: PAGE_URL,
+                        webUrl: PAGE_URL,
                     },
                 },
             ],
         });
-    };
+    }, []);
 
-    const handleCopyLink = async () => {
+    const handleCopyLink = useCallback(async () => {
         try {
-            await navigator.clipboard.writeText(pageUrl);
+            await navigator.clipboard.writeText(PAGE_URL);
             setIsCopied(true);
             setTimeout(() => setIsCopied(false), 2000);
-        } catch {
+        } catch (error) {
+            console.error('Failed to copy link:', error);
             alert('링크 복사에 실패했습니다.');
         }
-    };
+    }, []);
 
     return (
         <div className="h-full overflow-y-auto no-scrollbar" suppressHydrationWarning>
@@ -88,35 +86,21 @@ export function ShareSection({ url = '' }: ShareSectionProps) {
                 <div className="text-center space-y-4 opacity-0 animate-fade-in-up">
                     <h2 className="section-title">초대하기</h2>
                     <p className="text-muted-foreground">
-                        소중한 분들과<br />
-                        성탄 연합 찬양제를 함께 즐기세요.
+
+                        청년찬양대 연합 성탄찬양제를 <br />소중한 분들과 함께하세요.
                     </p>
                 </div>
 
                 {/* Preview Card */}
-                <Card className="w-full max-w-sm md:max-w-md card-christmas border-2 border-primary/10 shadow-xl pointer-events-none select-none opacity-0 animate-fade-in-up animate-stagger-1">
-                    <div className="h-40 bg-gradient-to-br from-primary/20 via-accent/20 to-secondary/20 relative overflow-hidden rounded-t-2xl">
-                        <div className="absolute inset-0 flex items-center justify-center">
-                            <span className="text-4xl font-bold text-primary/40 tracking-wider">Christmas</span>
-                        </div>
-                        {/* Decorative elements */}
-                        <div className="absolute top-4 left-4 w-12 h-12 rounded-full bg-primary/10 blur-xl" />
-                        <div className="absolute bottom-4 right-4 w-16 h-16 rounded-full bg-accent/10 blur-xl" />
-                    </div>
-                    <CardContent className="p-6 space-y-4">
-                        <h3 className="text-lg font-bold text-foreground">성탄 연합 찬양제</h3>
-                        <div className="space-y-2.5 text-sm text-muted-foreground">
-                            <div className="flex items-center gap-2">
-                                <Calendar className="w-4 h-4 text-primary flex-shrink-0" aria-hidden="true" />
-                                <span className="font-medium">{FESTIVAL_INFO.date} {FESTIVAL_INFO.time}</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <MapPin className="w-4 h-4 text-primary flex-shrink-0" aria-hidden="true" />
-                                <span className="break-keep font-medium">{FESTIVAL_INFO.location}</span>
-                            </div>
-                        </div>
-                    </CardContent>
-                </Card>
+
+                <div className="relative w-full aspect-[3/4] overflow-hidden rounded-t-2xl bg-[#850000]">
+                    <Image
+                        src="/images/poster1.jpeg"
+                        alt="Christmas Invitation Poster"
+                        fill
+                        className="object-contain"
+                    />
+                </div>
 
                 <div className="w-full max-w-sm md:max-w-md space-y-4 opacity-0 animate-fade-in-up animate-stagger-2">
                     <Button
@@ -147,6 +131,6 @@ export function ShareSection({ url = '' }: ShareSectionProps) {
                     </Button>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }

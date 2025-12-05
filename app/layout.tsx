@@ -21,10 +21,10 @@ export const metadata: Metadata = {
     type: 'article',
     images: [
       {
-        url: '/assets/kakao2.jpeg',
+        url: '/images/poster2.jpeg',
         width: 800,
         height: 400,
-        alt: '미리보기 이미지 설명',
+        alt: '2025 청년찬양대 연합 성탄 찬양제 포스터',
       },
     ],
     locale: 'ko_KR',

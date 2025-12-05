@@ -1,5 +1,3 @@
-import { details } from "framer-motion/client";
-
 export const FESTIVAL_INFO = {
   title: "2025 4개 교회 연합 성탄 찬양제",
   date: "2025.12.20 (토)",

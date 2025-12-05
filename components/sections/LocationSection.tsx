@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 import { ChurchIcon } from '@/components/icons/ChurchIcon';
 import { Button } from '@/components/ui/button';
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import type { NaverMap } from '@/types/naver-maps';
 import { renderToStaticMarkup } from 'react-dom/server';
 
@@ -19,7 +19,6 @@ interface LocationSectionProps {
     venue?: string;
     venueAddress?: string;
     venueFloor?: string;
-    imageUrl?: string;
 }
 
 interface UserLocation {
@@ -27,20 +26,27 @@ interface UserLocation {
     longitude: number;
 }
 
+// Constants moved outside component to prevent unnecessary re-renders
+const CHURCH_COORDS = {
+    lat: 37.57066632793,
+    lng: 126.9739148361,
+} as const;
+
 export function LocationSection({
     venue = '새문안교회',
     venueFloor = '새문안교회 4층 대예배실',
     venueAddress = '서울특별시 종로구 새문안로 79',
 }: LocationSectionProps) {
     const mapRef = useRef<HTMLDivElement>(null);
-    const mapInstanceRef = useRef<NaverMap | null>(null); // 지도 인스턴스 저장
-    const [scriptLoaded, setScriptLoaded] = useState(false); // 스크립트 로딩 상태
+    const mapInstanceRef = useRef<NaverMap | null>(null);
+    const [scriptLoaded, setScriptLoaded] = useState(false);
     const [mapLoaded, setMapLoaded] = useState(false);
     const [userLocation, setUserLocation] = useState<UserLocation | null>(null);
     const [locationLoading, setLocationLoading] = useState(false);
     const [locationError, setLocationError] = useState<string | null>(null);
 
-    const churchIconHtml = renderToStaticMarkup(
+    // Memoize expensive HTML generation
+    const churchIconHtml = useMemo(() => renderToStaticMarkup(
         <div
             style={{
                 display: 'flex',
@@ -55,13 +61,7 @@ export function LocationSection({
         >
             <ChurchIcon size={24} color="#ffffff" />
         </div>
-    );
-
-    // 새문안교회 좌표
-    const CHURCH_COORDS = {
-        lat: 37.57066632793,
-        lng: 126.9739148361,
-    };
+    ), []);
 
     // 사용자 현재 위치 가져오기
     const getCurrentLocation = (): Promise<UserLocation> => {
@@ -190,8 +190,8 @@ export function LocationSection({
                     '_blank'
                 );
             }
-        } catch {
-            // 위치를 가져올 수 없을 때는 기본 길찾기 실행
+        } catch (error) {
+            console.error('Failed to get current location for navigation:', error);
             handleNavigation();
         }
     };
@@ -299,10 +299,10 @@ export function LocationSection({
             }
 
             setMapLoaded(true);
-        } catch {
-            // 지도 생성 실패 시 무시
+        } catch (error) {
+            console.error('Map initialization failed:', error);
         }
-    }, [CHURCH_COORDS.lat, CHURCH_COORDS.lng, userLocation, venue]);
+    }, [churchIconHtml, userLocation, venue]);
     // Load Naver Maps script once and reuse
     useEffect(() => {
         // Check if script is already loaded
