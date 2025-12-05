@@ -17,7 +17,7 @@ const navItems = [
 
 function BottomNavContent() {
     const searchParams = useSearchParams();
-    const currentView = searchParams.get('view') || 'home';
+    const currentView = searchParams.get('view') || 'poster';
 
     return (
         <ul className="flex justify-around items-center h-16 max-w-lg mx-auto px-1">

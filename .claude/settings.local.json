@@ -6,7 +6,8 @@
       "Bash(pnpm lint:*)",
       "Bash(git add:*)",
       "Bash(git commit -m \"$(cat <<''EOF''\nrefactor: improve code quality, performance, and type safety\n\n- Remove unused imports (constants.ts, HomeSection.tsx)\n- Fix useEffect dependencies in page.tsx to prevent stale closures\n- Move CHURCH_COORDS outside component and memoize churchIconHtml in LocationSection\n- Add proper error logging in catch blocks (LocationSection, MusicPlayer, ShareSection)\n- Stabilize event handlers with useCallback (MusicPlayer, ShareSection, page.tsx)\n- Fix ShareSection setState synchronous call warning\n- Add aria-hidden and role attributes to SnowEffect for accessibility\n- Escape special characters in IntroSection (HTML entities)\n- Improve naver-maps.d.ts type definitions (replace all `any` types)\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(ls:*)"
     ],
     "deny": [],
     "ask": []

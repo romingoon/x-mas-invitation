@@ -40,7 +40,7 @@ const PosterSection = dynamic(
 function HomeContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const currentView = searchParams.get('view') || 'home';
+  const currentView = searchParams.get('view') || 'poster';
   const containerRef = useRef<HTMLDivElement>(null);
   const isProgrammaticScroll = useRef(false);
   const isUrlUpdateFromScroll = useRef(false);
