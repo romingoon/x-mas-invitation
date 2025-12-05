@@ -46,10 +46,8 @@ function HomeContent() {
   const isUrlUpdateFromScroll = useRef(false);
 
   const navigateTo = useCallback((view: string) => {
-    const newParams = new URLSearchParams(searchParams.toString());
-    newParams.set('view', view);
-    router.replace(`/?${newParams.toString()}`);
-  }, [searchParams, router]);
+    router.replace(`/?view=${view}`);
+  }, [router]);
 
   const scrollToSection = useCallback((sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -88,7 +86,7 @@ function HomeContent() {
     }
   }, [currentView, scrollToSection]);
 
-  // 스크롤 감지 및 URL 업데이트
+  // 스크롤 감지 및 URL 업데이트 (optimized)
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
@@ -100,19 +98,18 @@ function HomeContent() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const sectionId = entry.target.id;
-            // 현재 뷰와 다를 경우에만 URL 업데이트 (replace로 히스토리 쌓지 않음)
+            // 현재 뷰와 다를 경우에만 URL 업데이트
             if (currentView !== sectionId) {
               isUrlUpdateFromScroll.current = true;
-              const newParams = new URLSearchParams(searchParams.toString());
-              newParams.set('view', sectionId);
-              router.replace(`/?${newParams.toString()}`, { scroll: false });
+              router.replace(`/?view=${sectionId}`, { scroll: false });
             }
           }
         });
       },
       {
         root: container,
-        threshold: 0.55 // 55% 이상 보이면 해당 섹션으로 간주
+        threshold: 0.55,
+        rootMargin: '-10% 0px -10% 0px'
       }
     );
 
@@ -120,7 +117,7 @@ function HomeContent() {
     sections.forEach((section) => observer.observe(section));
 
     return () => observer.disconnect();
-  }, [router, currentView, searchParams]);
+  }, [router, currentView]);
 
   return (
     <div ref={containerRef} className="h-[calc(100dvh-5rem)] overflow-y-scroll snap-y snap-proximity scroll-smooth no-scrollbar" suppressHydrationWarning>

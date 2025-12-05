@@ -1,6 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { memo } from 'react';
+import { m, LazyMotion, domAnimation } from 'framer-motion';
 import {
     MapPin,
     Navigation,
@@ -9,11 +10,9 @@ import {
     TramFront,
     Loader2,
 } from 'lucide-react';
-import { ChurchIcon } from '@/components/icons/ChurchIcon';
 import { Button } from '@/components/ui/button';
-import { useEffect, useRef, useState, useCallback, useMemo } from 'react';
-import type { NaverMap } from '@/types/naver-maps';
-import { renderToStaticMarkup } from 'react-dom/server';
+import { useEffect, useRef, useState, useCallback } from 'react';
+import type { NaverMap, Marker } from '@/types/naver-maps';
 
 interface LocationSectionProps {
     venue?: string;
@@ -32,36 +31,49 @@ const CHURCH_COORDS = {
     lng: 126.9739148361,
 } as const;
 
-export function LocationSection({
+// Static HTML string for church marker icon (avoids renderToStaticMarkup import)
+const CHURCH_ICON_HTML = `
+<div style="
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: var(--secondary);
+    border-radius: 50%;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+">
+    <svg width="24" height="24" viewBox="0 0 640 512" fill="#ffffff" xmlns="http://www.w3.org/2000/svg">
+        <path d="M344 24c0-13.3-10.7-24-24-24s-24 10.7-24 24V48H264c-13.3 0-24 10.7-24 24s10.7 24 24 24h32v46.4L183.3 210c-14.5 8.7-23.3 24.3-23.3 41.2V512h96V416c0-35.3 28.7-64 64-64s64 28.7 64 64v96h96V251.2c0-16.9-8.8-32.5-23.3-41.2L344 142.4V96h32c13.3 0 24-10.7 24-24s-10.7-24-24-24H344V24zM24.9 330.3C9.5 338.8 0 354.9 0 372.4V464c0 26.5 21.5 48 48 48h80V273.6L24.9 330.3zM592 512c26.5 0 48-21.5 48-48V372.4c0-17.5-9.5-33.6-24.9-42.1L512 273.6V512h80z"/>
+    </svg>
+</div>
+`;
+
+// Animation variants for reuse
+const fadeInUp = {
+    initial: { opacity: 0, y: 15 },
+    animate: { opacity: 1, y: 0 },
+};
+
+const fadeInScale = {
+    initial: { opacity: 0, scale: 0.98 },
+    animate: { opacity: 1, scale: 1 },
+};
+
+export const LocationSection = memo(function LocationSection({
     venue = '새문안교회',
     venueFloor = '새문안교회 4층 대예배실',
     venueAddress = '서울특별시 종로구 새문안로 79',
 }: LocationSectionProps) {
     const mapRef = useRef<HTMLDivElement>(null);
     const mapInstanceRef = useRef<NaverMap | null>(null);
+    const markersRef = useRef<Marker[]>([]);
+    const timerRef = useRef<NodeJS.Timeout | null>(null);
     const [scriptLoaded, setScriptLoaded] = useState(false);
     const [mapLoaded, setMapLoaded] = useState(false);
     const [userLocation, setUserLocation] = useState<UserLocation | null>(null);
     const [locationLoading, setLocationLoading] = useState(false);
     const [locationError, setLocationError] = useState<string | null>(null);
-
-    // Memoize expensive HTML generation
-    const churchIconHtml = useMemo(() => renderToStaticMarkup(
-        <div
-            style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: '40px',
-                height: '40px',
-                background: 'var(--secondary)',
-                borderRadius: '50%',
-                boxShadow: '0 4px 6px rgba(0,0,0,0.2)',
-            }}
-        >
-            <ChurchIcon size={24} color="#ffffff" />
-        </div>
-    ), []);
 
     // 사용자 현재 위치 가져오기
     const getCurrentLocation = (): Promise<UserLocation> => {
@@ -244,7 +256,7 @@ export function LocationSection({
             const mapOptions = {
                 center: location,
                 zoom: 17,
-                minZoom: 11, // 최소 줌 (너무 축소 방지)
+                minZoom: 11,
                 maxZoom: 18,
                 zoomControl: true,
                 zoomControlOptions: {
@@ -258,17 +270,19 @@ export function LocationSection({
 
             const map = new window.naver.maps.Map(mapRef.current, mapOptions);
             mapInstanceRef.current = map;
+
             // 교회 마커 추가
-            new window.naver.maps.Marker({
+            const churchMarker = new window.naver.maps.Marker({
                 position: location,
                 map: map,
                 title: venue,
                 icon: {
-                    content: churchIconHtml,
+                    content: CHURCH_ICON_HTML,
                     size: new window.naver.maps.Size(100, 40),
                     anchor: new window.naver.maps.Point(50, 45),
                 },
             });
+            markersRef.current.push(churchMarker);
 
             // 사용자 위치가 있으면 사용자 위치 마커도 추가
             if (userLocation) {
@@ -277,32 +291,24 @@ export function LocationSection({
                     userLocation.longitude
                 );
 
-                new window.naver.maps.Marker({
+                const userMarker = new window.naver.maps.Marker({
                     position: userLocationLatLng,
                     map: map,
                     title: '현재 위치',
                     icon: {
-                        content: `
-            <div style="
-              width: 20px;
-              height: 20px;
-              background: #3b82f6;
-              border: 3px solid white;
-              border-radius: 50%;
-              box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-            "></div>
-          `,
+                        content: `<div style="width:20px;height:20px;background:#3b82f6;border:3px solid white;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,0.2);"></div>`,
                         size: new window.naver.maps.Size(20, 20),
                         anchor: new window.naver.maps.Point(10, 10),
                     },
                 });
+                markersRef.current.push(userMarker);
             }
 
             setMapLoaded(true);
         } catch (error) {
             console.error('Map initialization failed:', error);
         }
-    }, [churchIconHtml, userLocation, venue]);
+    }, [userLocation, venue]);
     // Load Naver Maps script once and reuse
     useEffect(() => {
         // Check if script is already loaded
@@ -335,15 +341,20 @@ export function LocationSection({
     // 스크립트 로드 후 지도 초기화
     useEffect(() => {
         if (scriptLoaded && mapRef.current) {
-            // 약간의 딜레이를 주어 DOM과 스크립트가 완전히 준비되도록 함
-            const timer = setTimeout(() => {
+            if (timerRef.current) {
+                clearTimeout(timerRef.current);
+            }
+            timerRef.current = setTimeout(() => {
                 initializeMap();
-            }, 500); // 딜레이를 늘림
+            }, 500);
 
-            return () => clearTimeout(timer);
+            return () => {
+                if (timerRef.current) {
+                    clearTimeout(timerRef.current);
+                }
+            };
         }
     }, [scriptLoaded, initializeMap]);
-
 
     // 사용자 위치가 업데이트되면 지도도 다시 초기화
     useEffect(() => {
@@ -352,53 +363,73 @@ export function LocationSection({
         }
     }, [userLocation, initializeMap, mapLoaded]);
 
+    // Cleanup on unmount
+    useEffect(() => {
+        return () => {
+            markersRef.current.forEach(marker => {
+                marker.setMap(null);
+            });
+            markersRef.current = [];
+
+            if (mapInstanceRef.current) {
+                mapInstanceRef.current.destroy();
+                mapInstanceRef.current = null;
+            }
+
+            if (timerRef.current) {
+                clearTimeout(timerRef.current);
+            }
+        };
+    }, []);
+
     return (
-        <div className="h-full overflow-y-auto pb-24" suppressHydrationWarning>
-            <div className="max-w-lg mx-auto">
-                {/* Header */}
-                <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="pt-8 pb-6 px-8 text-center"
-                    suppressHydrationWarning
-                >
-                    <h2 className="text-2xl font-bold text-gradient-christmas mb-1">오시는 길</h2>
-                    <p className="text-sm text-muted-foreground">Location</p>
-                </motion.div>
-
-                <div className="px-8 space-y-5">
-                    {/* Venue Info */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.98 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.1 }}
-                        className="rounded-2xl overflow-hidden shadow-md bg-gradient-to-br from-primary/10 via-white/50 to-accent/10 p-6 border border-primary/10 backdrop-blur-sm"
-                        suppressHydrationWarning
-                    >
-                        <div className="flex items-start gap-3">
-                            <div className="p-2 bg-primary/10 rounded-full text-primary">
-                                <MapPin className="w-6 h-6 flex-shrink-0" />
-                            </div>
-                            <div>
-                                <h3 className="text-xl mb-2 font-bold text-primary">{venueFloor}</h3>
-                                <p className="text-sm text-foreground/80 leading-relaxed break-keep font-medium">
-                                    {venueAddress}
-                                </p>
-                            </div>
-                        </div>
-                    </motion.div>
-
-                    {/* Naver Map */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 15 }}
+        <LazyMotion features={domAnimation} strict>
+            <div className="h-full overflow-y-auto pb-24" suppressHydrationWarning>
+                <div className="max-w-lg mx-auto">
+                    {/* Header */}
+                    <m.div
+                        initial={{ opacity: 0, y: -10 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ delay: 0.2 }}
-                        className="card-christmas p-4"
+                        className="pt-8 pb-6 px-8 text-center"
                         suppressHydrationWarning
                     >
+                        <h2 className="text-2xl font-bold text-gradient-christmas mb-1">오시는 길</h2>
+                        <p className="text-sm text-muted-foreground">Location</p>
+                    </m.div>
+
+                    <div className="px-8 space-y-5">
+                        {/* Venue Info */}
+                        <m.div
+                            {...fadeInScale}
+                            whileInView="animate"
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.1 }}
+                            className="rounded-2xl overflow-hidden shadow-md bg-gradient-to-br from-primary/10 via-white/50 to-accent/10 p-6 border border-primary/10 backdrop-blur-sm"
+                            suppressHydrationWarning
+                        >
+                            <div className="flex items-start gap-3">
+                                <div className="p-2 bg-primary/10 rounded-full text-primary">
+                                    <MapPin className="w-6 h-6 flex-shrink-0" />
+                                </div>
+                                <div>
+                                    <h3 className="text-xl mb-2 font-bold text-primary">{venueFloor}</h3>
+                                    <p className="text-sm text-foreground/80 leading-relaxed break-keep font-medium">
+                                        {venueAddress}
+                                    </p>
+                                </div>
+                            </div>
+                        </m.div>
+
+                        {/* Naver Map */}
+                        <m.div
+                            {...fadeInUp}
+                            whileInView="animate"
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.2 }}
+                            className="card-christmas p-4"
+                            suppressHydrationWarning
+                        >
                         {' '}
                         {/* 지도 영역 */}
                         <div
@@ -454,12 +485,12 @@ export function LocationSection({
                                 </Button>
                             </div>
                         )}
-                    </motion.div>
+                    </m.div>
 
                     {/* Getting There */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 15 }}
-                        whileInView={{ opacity: 1, y: 0 }}
+                    <m.div
+                        {...fadeInUp}
+                        whileInView="animate"
                         viewport={{ once: true }}
                         transition={{ delay: 0.3 }}
                         className="space-y-4"
@@ -538,22 +569,23 @@ export function LocationSection({
                                 </div>
                             </div>
                         </div>
-                    </motion.div>
+                    </m.div>
 
-                    {/* Additional Info */}
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.5 }}
-                        className="bg-primary/5 rounded-xl p-4 border border-primary/10 text-center"
-                    >
-                        <p className="text-xs text-primary font-medium">
-                            장애인 편의시설이 완비되어 있습니다
-                        </p>
-                    </motion.div>
+                        {/* Additional Info */}
+                        <m.div
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.5 }}
+                            className="bg-primary/5 rounded-xl p-4 border border-primary/10 text-center"
+                        >
+                            <p className="text-xs text-primary font-medium">
+                                장애인 편의시설이 완비되어 있습니다
+                            </p>
+                        </m.div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </LazyMotion>
     );
-}
+});

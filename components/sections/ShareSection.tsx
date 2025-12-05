@@ -1,16 +1,14 @@
 'use client';
 
+import { memo, useEffect, useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { FESTIVAL_INFO } from "@/lib/constants";
-import { Calendar, MapPin, Link as LinkIcon, Check } from "lucide-react";
+import { Link as LinkIcon, Check } from "lucide-react";
 import { KakaoTalkIcon } from "@/components/icons/KakaoTalkIcon";
-import { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 
 const PAGE_URL = 'https://x-mas-invitation.vercel.app/';
 
-export function ShareSection() {
+export const ShareSection = memo(function ShareSection() {
     // Initialize state with actual Kakao SDK state to avoid synchronous setState in effect
     const [isKakaoInitialized, setIsKakaoInitialized] = useState(() => {
         if (typeof window !== 'undefined') {
@@ -135,4 +133,4 @@ export function ShareSection() {
             </div>
         </div >
     );
-}
+});

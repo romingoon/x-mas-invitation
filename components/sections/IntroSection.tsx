@@ -1,6 +1,7 @@
+import { memo } from 'react';
 import { FESTIVAL_INFO } from "@/lib/constants";
 
-export function IntroSection() {
+export const IntroSection = memo(function IntroSection() {
     return (
         <div className="section-container" suppressHydrationWarning>
             <h2 className="section-title opacity-0 animate-fade-in-up">소개</h2>
@@ -23,4 +24,4 @@ export function IntroSection() {
             </div>
         </div>
     );
-}
+});

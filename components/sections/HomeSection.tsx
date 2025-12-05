@@ -1,5 +1,6 @@
 'use client';
 
+import { memo } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { FESTIVAL_INFO } from "@/lib/constants";
@@ -9,7 +10,7 @@ interface HomeSectionProps {
     onNavigate: (sectionId: string) => void;
 }
 
-export function HomeSection({ onNavigate }: HomeSectionProps) {
+export const HomeSection = memo(function HomeSection({ onNavigate }: HomeSectionProps) {
     return (
         <div className="relative flex flex-col items-center justify-center space-y-5 py-6 px-6 h-full overflow-y-auto bg-[url('/images/snow-bg.png')] bg-cover bg-center" suppressHydrationWarning>
             {/* Overlay for better text readability */}
@@ -85,4 +86,4 @@ export function HomeSection({ onNavigate }: HomeSectionProps) {
 
         </div >
     );
-}
+});

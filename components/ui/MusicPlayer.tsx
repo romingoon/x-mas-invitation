@@ -1,47 +1,45 @@
 'use client';
 
+import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { BGM_PLAYLIST } from "@/lib/constants";
 import { Disc, Music, Pause, Play, SkipForward, Volume2, VolumeX } from "lucide-react";
-import { useCallback, useEffect, useRef, useState } from "react";
 import { Button } from "./button";
 import { cn } from "@/lib/utils";
 
-export function MusicPlayer() {
+export const MusicPlayer = memo(function MusicPlayer() {
     const audioRef = useRef<HTMLAudioElement>(null);
+    const hasInteractedRef = useRef(false);
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
     const [isMuted, setIsMuted] = useState(false);
     const [showControls, setShowControls] = useState(false);
-    const [hasInteracted, setHasInteracted] = useState(false);
 
     const currentTrack = BGM_PLAYLIST[currentTrackIndex];
 
-    const handleInteraction = useCallback(() => {
-        if (!hasInteracted) {
-            setHasInteracted(true);
-            if (audioRef.current && audioRef.current.paused) {
-                audioRef.current.play()
-                    .then(() => setIsPlaying(true))
-                    .catch((error) => {
-                        // Only log if it's not an autoplay policy error
-                        if (!(error instanceof DOMException && error.name === 'NotAllowedError')) {
-                            console.error('Audio playback failed on interaction:', error);
-                        }
-                    });
-            }
-        }
-    }, [hasInteracted]);
-
     useEffect(() => {
+        const handleInteraction = () => {
+            if (!hasInteractedRef.current) {
+                hasInteractedRef.current = true;
+                if (audioRef.current && audioRef.current.paused) {
+                    audioRef.current.play()
+                        .then(() => setIsPlaying(true))
+                        .catch((error) => {
+                            if (!(error instanceof DOMException && error.name === 'NotAllowedError')) {
+                                console.error('Audio playback failed on interaction:', error);
+                            }
+                        });
+                }
+            }
+        };
+
         // 첫 로드 시 자동 재생 시도
         const attemptPlay = async () => {
             if (audioRef.current) {
                 try {
-                    audioRef.current.volume = 0.5; // 초기 볼륨 50%
+                    audioRef.current.volume = 0.5;
                     await audioRef.current.play();
                     setIsPlaying(true);
                 } catch (error) {
-                    // Auto-play blocked by browser policy - expected behavior
                     if (!(error instanceof DOMException && error.name === 'NotAllowedError')) {
                         console.error('Auto-play failed:', error);
                     }
@@ -52,13 +50,14 @@ export function MusicPlayer() {
 
         attemptPlay();
 
-        window.addEventListener('click', handleInteraction);
-        window.addEventListener('touchstart', handleInteraction);
+        const options = { passive: true } as AddEventListenerOptions;
+        window.addEventListener('click', handleInteraction, options);
+        window.addEventListener('touchstart', handleInteraction, options);
         return () => {
             window.removeEventListener('click', handleInteraction);
             window.removeEventListener('touchstart', handleInteraction);
         };
-    }, [handleInteraction]);
+    }, []);
 
     // 백그라운드 전환 시 오디오 일시정지 처리
     useEffect(() => {
@@ -162,4 +161,4 @@ export function MusicPlayer() {
             />
         </div>
     );
-}
+});

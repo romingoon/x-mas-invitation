@@ -1,7 +1,8 @@
+import { memo } from 'react';
 import { PROGRAM } from "@/lib/constants";
 import { Music, Mic2 } from "lucide-react";
 
-export function ProgramSection() {
+export const ProgramSection = memo(function ProgramSection() {
     return (
         <div className="section-container" suppressHydrationWarning>
             <h2 className="section-title opacity-0 animate-fade-in-up text-center mb-8 text-gradient-christmas">프로그램</h2>
@@ -52,4 +53,4 @@ export function ProgramSection() {
             </div>
         </div>
     );
-}
+});
