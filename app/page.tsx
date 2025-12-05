@@ -123,7 +123,7 @@ function HomeContent() {
   }, [router, currentView, searchParams]);
 
   return (
-    <div ref={containerRef} className="h-[calc(100dvh-5rem)] overflow-y-scroll snap-y snap-proximity scroll-smooth no-scrollbar">
+    <div ref={containerRef} className="h-[calc(100dvh-5rem)] overflow-y-scroll snap-y snap-proximity scroll-smooth no-scrollbar" suppressHydrationWarning>
       <section id="poster" className="h-full snap-start w-full overflow-hidden">
         <PosterSection containerRef={containerRef} />
       </section>

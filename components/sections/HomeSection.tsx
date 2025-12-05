@@ -11,7 +11,7 @@ interface HomeSectionProps {
 
 export function HomeSection({ onNavigate }: HomeSectionProps) {
     return (
-        <div className="relative flex flex-col items-center justify-center space-y-5 py-6 px-6 h-full overflow-y-auto bg-[url('/images/snow-bg.png')] bg-cover bg-center">
+        <div className="relative flex flex-col items-center justify-center space-y-5 py-6 px-6 h-full overflow-y-auto bg-[url('/images/snow-bg.png')] bg-cover bg-center" suppressHydrationWarning>
             {/* Overlay for better text readability */}
             <div className="absolute inset-0 bg-white/30 backdrop-blur-[2px] -z-10" />
 

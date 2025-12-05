@@ -360,13 +360,14 @@ export function LocationSection({
                     initial={{ opacity: 0, y: -10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="pt-8 pb-6 px-6 text-center"
+                    className="pt-8 pb-6 px-8 text-center"
+                    suppressHydrationWarning
                 >
                     <h2 className="text-2xl font-bold text-gradient-christmas mb-1">오시는 길</h2>
                     <p className="text-sm text-muted-foreground">Location</p>
                 </motion.div>
 
-                <div className="px-6 space-y-5">
+                <div className="px-8 space-y-5">
                     {/* Venue Info */}
                     <motion.div
                         initial={{ opacity: 0, scale: 0.98 }}
@@ -374,6 +375,7 @@ export function LocationSection({
                         viewport={{ once: true }}
                         transition={{ delay: 0.1 }}
                         className="rounded-2xl overflow-hidden shadow-md bg-gradient-to-br from-primary/10 via-white/50 to-accent/10 p-6 border border-primary/10 backdrop-blur-sm"
+                        suppressHydrationWarning
                     >
                         <div className="flex items-start gap-3">
                             <div className="p-2 bg-primary/10 rounded-full text-primary">
@@ -395,6 +397,7 @@ export function LocationSection({
                         viewport={{ once: true }}
                         transition={{ delay: 0.2 }}
                         className="card-christmas p-4"
+                        suppressHydrationWarning
                     >
                         {' '}
                         {/* 지도 영역 */}
@@ -460,6 +463,7 @@ export function LocationSection({
                         viewport={{ once: true }}
                         transition={{ delay: 0.3 }}
                         className="space-y-4"
+                        suppressHydrationWarning
                     >
                         <h3 className="font-bold text-lg text-primary ml-1">교통편 안내</h3>
 

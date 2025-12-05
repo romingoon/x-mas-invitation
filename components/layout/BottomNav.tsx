@@ -33,6 +33,7 @@ function BottomNavContent() {
                             replace={true}
                             aria-label={item.label}
                             aria-current={isActive ? 'page' : undefined}
+                            suppressHydrationWarning
                             className={cn(
                                 "relative flex flex-col items-center justify-center w-full h-full space-y-0.5 transition-all duration-200 rounded-lg mx-0.5",
                                 isActive

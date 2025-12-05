@@ -106,6 +106,7 @@ export function ShareSection() {
                     <Button
                         onClick={handleKakaoShare}
                         disabled={!isKakaoInitialized}
+                        suppressHydrationWarning
                         className="w-full bg-[#FEE500] hover:bg-[#FDD835] text-[#191919] text-lg py-6 rounded-xl shadow-lg hover:shadow-xl transition-all font-semibold disabled:opacity-50 active:scale-[0.98]"
                     >
                         <KakaoTalkIcon className="w-6 h-6 mr-2" />
@@ -115,6 +116,7 @@ export function ShareSection() {
                     <Button
                         onClick={handleCopyLink}
                         variant="outline"
+                        suppressHydrationWarning
                         className="w-full border-2 border-border hover:border-primary/30 text-foreground text-lg py-6 rounded-xl hover:bg-muted/50 transition-all font-semibold active:scale-[0.98]"
                     >
                         {isCopied ? (
