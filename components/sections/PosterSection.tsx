@@ -1,14 +1,14 @@
 'use client';
 
 import Image from 'next/image';
-import { motion, useScroll, useTransform, useInView } from 'framer-motion';
+import { motion, useScroll, useTransform, useInView, type Variants } from 'framer-motion';
 import { useRef } from 'react';
 
 interface PosterSectionProps {
     containerRef?: React.RefObject<HTMLDivElement | null>;
 }
 
-const posterVariants = {
+const posterVariants: Variants = {
     hidden: {
         opacity: 0,
         scale: 0.9,
@@ -20,7 +20,7 @@ const posterVariants = {
         y: 0,
         transition: {
             duration: 0.8,
-            ease: [0.16, 1, 0.3, 1] as const
+            ease: "easeOut"
         }
     }
 };
