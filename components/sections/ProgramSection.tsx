@@ -15,11 +15,12 @@ export const ProgramSection = memo(function ProgramSection() {
                         style={{ animationDelay: `${Math.min(index * 0.1, 1)}s` }}
                     >
                         <div className="flex items-start gap-4">
-                            <div className="flex flex-col items-center gap-2 shrink-0">
-                                <span className="program-badge shadow-md">
-                                    {item.id}
-                                </span>
-                                <div className="h-full w-[2px] bg-gradient-to-b from-primary/20 to-transparent rounded-full min-h-[20px]" />
+                            <div className="flex flex-col items-center shrink-0">
+                                <div className="program-badge">
+                                    <span className="program-badge-body">
+                                        {item.id}
+                                    </span>
+                                </div>
                             </div>
 
                             <div className="flex-1 min-w-0 pt-1">
