@@ -32,7 +32,7 @@ export const HomeSection = memo(function HomeSection({ onNavigate }: HomeSection
                 </p>
             </div>
 
-            <Card className="w-full max-w-xs md:max-w-sm card-christmas-border shadow-xl opacity-0 animate-fade-in-up animate-stagger-2 z-10">
+            <Card className="w-full max-w-xs md:max-w-sm card-christmas shadow-xl opacity-0 animate-fade-in-up animate-stagger-2 z-10">
                 <CardContent className="p-4 space-y-2.5">
                     <div className="flex items-center space-x-3 text-foreground group">
                         <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary/20 to-accent/10 border border-primary/20 flex items-center justify-center group-hover:from-primary/30 group-hover:to-accent/20 transition-colors">
@@ -48,7 +48,7 @@ export const HomeSection = memo(function HomeSection({ onNavigate }: HomeSection
                             </span>
                         </div>
                     </div>
-                    <div className="divider-christmas" />
+                    <div className="h-px w-full bg-border/50" />
                     <div className="flex items-center space-x-3 text-foreground group">
                         <div className="w-8 h-8 rounded-full bg-gradient-to-br from-secondary/20 to-accent/10 border border-secondary/20 flex items-center justify-center group-hover:from-secondary/30 group-hover:to-accent/20 transition-colors">
                             <MapPin className="w-4 h-4 text-secondary" aria-hidden="true" />
@@ -73,10 +73,10 @@ export const HomeSection = memo(function HomeSection({ onNavigate }: HomeSection
                 </p>
             </div>
 
-            <div className="w-full max-w-sm md:max-w-md opacity-0 animate-fade-in-up animate-stagger-3 z-10">
+            <div className="w-full max-w-xs opacity-0 animate-fade-in-up animate-stagger-3 z-10">
                 <Button
                     onClick={() => onNavigate('intro')}
-                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-lg py-6 rounded-2xl btn-glow shadow-lg shadow-primary/20 transition-all duration-300"
+                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-base py-5 rounded-2xl btn-glow shadow-lg shadow-primary/20 transition-all duration-300"
                 >
                     초대장 열기
                 </Button>
