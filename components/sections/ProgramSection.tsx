@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { PROGRAM } from "@/lib/constants";
-import { Music, Mic2 } from "lucide-react";
+import { Music, BookOpenText } from "lucide-react";
 
 export const ProgramSection = memo(function ProgramSection() {
     return (
@@ -38,7 +38,7 @@ export const ProgramSection = memo(function ProgramSection() {
 
                                 <div className="space-y-2 bg-secondary/5 p-3 rounded-xl border border-secondary/10">
                                     <p className="text-sm text-secondary font-bold break-keep flex items-center gap-2">
-                                        <Mic2 className="w-4 h-4" />
+                                        <BookOpenText className="w-4 h-4" />
                                         {item.performer}
                                     </p>
                                     {item.details && (
