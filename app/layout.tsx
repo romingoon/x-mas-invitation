@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     type: 'article',
     images: [
       {
-        url: '/images/poster2.jpeg',
+        url: '/images/th.png',
         width: 800,
         height: 400,
         alt: '2025 청년찬양대 연합 성탄 찬양제 포스터',

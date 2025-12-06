@@ -47,7 +47,7 @@ export const ShareSection = memo(function ShareSection() {
         window.Kakao.Share.sendDefault({
             objectType: 'feed',
             content: {
-                title: '2025 청년찬양대 연합 성탄찬양제에 초대합니다',
+                title: '2025 청년찬양대 연합 성탄찬양제 초대장',
                 description: '2025년 12월 20일(토) 오후 3시\n새문안교회 4층 대예배실',
                 imageUrl: 'https://x-mas-invitation.vercel.app/images/thumb.jpeg',
                 link: {
@@ -85,7 +85,7 @@ export const ShareSection = memo(function ShareSection() {
                     <h2 className="section-title">초대하기</h2>
                     <p className="text-muted-foreground">
 
-                        청년찬양대 연합 성탄찬양제를 <br />소중한 분들과 함께하세요.
+                        기쁨과 감동이 흐르는 성탄의 자리에<br />소중한 분들을 초대하세요.
                     </p>
                 </div>
 
